@@ -4,6 +4,7 @@ using System.Collections;
 public class AIMovement : MonoBehaviour {
 
     public float moveSpeed = 6.0f;
+	public float maxDist = 8.0f;
     public GameObject player;
 
 	// Use this for initialization
@@ -14,8 +15,9 @@ public class AIMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	    Vector3 toPlayer = new Vector3();
-
-        toPlayer = player.transform.position - this.transform.position;
-        this.transform.Translate(toPlayer.normalized * moveSpeed * Time.deltaTime);
+		if (!(toPlayer.magnitude > maxDist)) {
+			toPlayer = player.transform.position - this.transform.position;
+			this.transform.Translate (toPlayer.normalized * moveSpeed * Time.deltaTime);
+		}
 	}
 }

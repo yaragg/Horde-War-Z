@@ -15,6 +15,6 @@ public class startGame : MonoBehaviour {
 
     public void onStartClick()
     {
-        Application.LoadLevel("startScreen");
+        Application.LoadLevel("mainGameScene");
     }
 }
