@@ -16,18 +16,27 @@ public class Zombie : MonoBehaviour {
 	
 	}
 
-	public void decreaseHealth(){
-		if(health>0){
+	public void DecreaseHealth(){
+		if(health > 1){
 			health--;
 		}
 		else{
-			//TODO dead!
+			Destroy(this.gameObject);
 		}
 	}
 
-	public void increaseHealth(){
+	public void IncreaseHealth(){
 		if(health < healthMax){
 			health++;
+		}
+	}
+
+	// Called whenever the Zombie collides with a 2D collider component
+	void OnTriggerEnter2D(Collider2D col){
+		// If the obj is a character
+		if (col.gameObject.tag == "Player") {
+			col.gameObject.GetComponent<Character>().DecreaseHealth();
+			this.DecreaseHealth();
 		}
 	}
 }
