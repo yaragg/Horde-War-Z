@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Bullet : MonoBehaviour {
-	public float moveSpeed = 7.0f;
+	public float moveSpeed = 10.0f;
 	float timeCreated;
 	public float lifespan = 5;
 
@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.transform.Translate(transform.forward*moveSpeed*Time.deltaTime);
+		transform.Translate(transform.up * moveSpeed * Time.deltaTime);
 
 		//Destroy if time limit exceeded
 		if(Time.timeSinceLevelLoad - timeCreated > lifespan) Destroy(this.gameObject);
