@@ -17,7 +17,14 @@ public class Bullet : MonoBehaviour {
 
 		//Destroy if time limit exceeded
 		if(Time.timeSinceLevelLoad - timeCreated > lifespan) Destroy(this.gameObject);
+	}
 
-		//TODO destroy if it collides with a zombie
+	// Called whenever the bullet collides with a 2D collider component
+	void OnTriggerEnter2D(Collider2D col){
+		// If the obj is an Enemy
+		if (col.gameObject.tag == "Enemy") {
+			col.gameObject.GetComponent<Zombie>().DecreaseHealth();
+			Destroy(this.gameObject);
+		}
 	}
 }

@@ -17,11 +17,11 @@ public class Zombie : MonoBehaviour {
 	}
 
 	public void DecreaseHealth(){
-		if(health>0){
+		if(health > 1){
 			health--;
 		}
 		else{
-			//TODO dead!
+			Destroy(this.gameObject);
 		}
 	}
 
