@@ -16,7 +16,7 @@ public class Zombie : MonoBehaviour {
 	
 	}
 
-	public void decreaseHealth(){
+	public void DecreaseHealth(){
 		if(health>0){
 			health--;
 		}
@@ -25,7 +25,7 @@ public class Zombie : MonoBehaviour {
 		}
 	}
 
-	public void increaseHealth(){
+	public void IncreaseHealth(){
 		if(health < healthMax){
 			health++;
 		}

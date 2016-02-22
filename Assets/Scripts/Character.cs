@@ -14,9 +14,10 @@ public class Character : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetMouseButtonDown(0)) this.gameObject.transform.GetChild(1).GetComponent<Gun>().Shoot();
 	}
 
-	public void decreaseHealth(){
+	public void DecreaseHealth(){
 		if(health>0){
 			health--;
 			GameObject heart = this.gameObject.transform.GetChild(0).GetChild(health).gameObject;
@@ -29,7 +30,7 @@ public class Character : MonoBehaviour {
 		}
 	}
 
-	public void increaseHealth(){
+	public void IncreaseHealth(){
 		if(health < healthMax){
 			GameObject heart = this.gameObject.transform.GetChild(0).GetChild(health).gameObject;
 			Renderer rend = heart.GetComponent<Renderer>();
@@ -37,5 +38,9 @@ public class Character : MonoBehaviour {
 			rend.sharedMaterial = full;
 			health++;
 		}
+	}
+
+	public void Shoot(){
+
 	}
 }
