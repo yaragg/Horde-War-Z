@@ -13,7 +13,8 @@ public class Bullet : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Translate(transform.forward * moveSpeed * Time.deltaTime);
+		transform.Translate(transform.right * moveSpeed * Time.deltaTime);
+        
 
 		//Destroy if time limit exceeded
 		if(Time.timeSinceLevelLoad - timeCreated > lifespan) Destroy(this.gameObject);

@@ -10,20 +10,20 @@ public class Player : MonoBehaviour {
     void Start() {
         for (int i = 0; i < 4; i++)
         {
-            //TODO rotate all to have same "UP"
+            // Rotates each character so their right vector is facing the proper direction
             switch (i)
             {
                 case 0:
-                    this.gameObject.transform.GetChild(i).forward = transform.right * -1;
+                    this.gameObject.transform.GetChild(i).Rotate(transform.forward, 270);
                     break;
                 case 1:
-                    this.gameObject.transform.GetChild(i).forward = transform.up;
+                    this.gameObject.transform.GetChild(i).Rotate(transform.forward, 45);
                     break;
                 case 2:
-                    this.gameObject.transform.GetChild(i).forward = transform.right;
+                    this.gameObject.transform.GetChild(i).Rotate(transform.forward, 180);
                     break;
                 case 3:
-                    this.gameObject.transform.GetChild(i).forward = transform.up * -1;
+                    this.gameObject.transform.GetChild(i).Rotate(transform.forward, -45);
                     break;
                 default:
                     break;
