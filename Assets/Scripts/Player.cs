@@ -53,7 +53,7 @@ public class Player : MonoBehaviour {
 		// if(characters[2].activeSelf) characters [2].transform.localPosition = new Vector3 (this.transform.position.x, this.transform.position.y + characters [0].transform.localScale.y, 0 );
 		// if(characters[3].activeSelf) characters [3].transform.localPosition = new Vector3 (this.transform.position.x  - characters [0].transform.localScale.x, this.transform.position.y, 0 );
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             for (int i = 0; i < 4; i++)
             {
@@ -62,17 +62,17 @@ public class Player : MonoBehaviour {
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.Q)){
-        	this.transform.Rotate(new Vector3(0, 0, 90));
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.C)){
+        	this.transform.Rotate(new Vector3(0, 0, 45));
         	foreach (GameObject character in characters){
-				character.transform.GetChild(1).transform.Rotate(0,0,-90);
+				character.transform.GetChild(1).transform.Rotate(0,0,-45);
         	}
 			
         }
-		if (Input.GetKeyDown(KeyCode.E)){
-			this.transform.Rotate(new Vector3(0, 0, -90));
+		if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.V)){
+			this.transform.Rotate(new Vector3(0, 0, -45));
 			foreach (GameObject character in characters){
-				character.transform.GetChild(1).transform.Rotate(0,0,90);
+				character.transform.GetChild(1).transform.Rotate(0,0,45);
 			}
 		}
 	}
