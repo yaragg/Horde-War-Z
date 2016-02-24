@@ -5,30 +5,37 @@ public class Player : MonoBehaviour {
 
 	public GameObject[] characters;
 	public float moveSpeed = 7.5f;
+    public GameObject healthbarType;
+    public GameObject gunType;
 
     // Use this for initialization
     void Start() {
         for (int i = 0; i < 4; i++)
         {
+            GameObject go = this.gameObject.transform.GetChild(i).gameObject;
             // Rotates each character's gun so so it fires in the correct direction
             switch (i)
             {
                 case 0:
-                    this.gameObject.transform.GetChild(i).rotation = Quaternion.LookRotation(transform.position - Vector3.right, Vector3.forward);
+                    go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.right, Vector3.forward);
                     break;
                 case 1:
-                    this.gameObject.transform.GetChild(i).rotation = Quaternion.LookRotation(transform.position + Vector3.up, Vector3.forward);
+                    go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.up, Vector3.forward);
                     break;
                 case 2:
-                    this.gameObject.transform.GetChild(i).rotation = Quaternion.LookRotation(transform.position + Vector3.right, Vector3.forward);
+                    go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, Vector3.forward);
                     break;
                 case 3:
-                    this.gameObject.transform.GetChild(i).rotation = Quaternion.LookRotation(transform.position - Vector3.up, Vector3.forward);
+                    go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.up, Vector3.forward);
                     break;
                 default:
                     break;
             }
+            GameObject healthbar = (GameObject) Instantiate(healthbarType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2), Quaternion.identity);
+            healthbar.transform.parent = go.transform;
+
         }
+
     }
 	
 	// Update is called once per frame
@@ -48,7 +55,7 @@ public class Player : MonoBehaviour {
         {
             for (int i = 0; i < 4; i++)
             {
-                this.gameObject.transform.GetChild(i).GetChild(1).GetComponent<Gun>().Shoot();
+                this.gameObject.transform.GetChild(i).GetChild(0).GetComponent<Gun>().Shoot();
             }
         }
     }

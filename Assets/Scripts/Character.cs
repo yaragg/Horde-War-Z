@@ -20,7 +20,7 @@ public class Character : MonoBehaviour {
 	public void DecreaseHealth(){
 		if(health>0){
 			health--;
-			GameObject heart = this.gameObject.transform.GetChild(0).GetChild(health).gameObject;
+			GameObject heart = this.gameObject.transform.GetChild(1).GetChild(health).gameObject;
 			Renderer rend = heart.GetComponent<Renderer>();
 			rend.enabled = true;
 			rend.sharedMaterial = depleted;
@@ -32,7 +32,7 @@ public class Character : MonoBehaviour {
 
 	public void IncreaseHealth(){
 		if(health < healthMax){
-			GameObject heart = this.gameObject.transform.GetChild(0).GetChild(health).gameObject;
+			GameObject heart = this.gameObject.transform.GetChild(1).GetChild(health).gameObject;
 			Renderer rend = heart.GetComponent<Renderer>();
 			rend.enabled = true;
 			rend.sharedMaterial = full;

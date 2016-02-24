@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //transform.LookAt(transform.position + transform.right);
-		transform.Translate(transform.forward * moveSpeed * Time.deltaTime);
+		transform.Translate(transform.up * moveSpeed * Time.deltaTime);
 
 		//Destroy if time limit exceeded
 		if(Time.timeSinceLevelLoad - timeCreated > lifespan) Destroy(this.gameObject);
