@@ -14,7 +14,7 @@ public class Character : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//if(Input.GetMouseButtonDown(0)) this.gameObject.transform.GetChild(1).GetComponent<Gun>().Shoot();
+
 	}
 
 	public void DecreaseHealth(){

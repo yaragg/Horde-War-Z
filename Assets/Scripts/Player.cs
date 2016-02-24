@@ -10,20 +10,20 @@ public class Player : MonoBehaviour {
     void Start() {
         for (int i = 0; i < 4; i++)
         {
-            // Rotates each character so their right vector is facing the proper direction
+            // Rotates each character's gun so so it fires in the correct direction
             switch (i)
             {
                 case 0:
-                    this.gameObject.transform.GetChild(i).Rotate(transform.forward, 270);
+                    this.gameObject.transform.GetChild(i).rotation = Quaternion.LookRotation(transform.position - Vector3.right, Vector3.forward);
                     break;
                 case 1:
-                    this.gameObject.transform.GetChild(i).Rotate(transform.forward, 45);
+                    this.gameObject.transform.GetChild(i).rotation = Quaternion.LookRotation(transform.position + Vector3.up, Vector3.forward);
                     break;
                 case 2:
-                    this.gameObject.transform.GetChild(i).Rotate(transform.forward, 180);
+                    this.gameObject.transform.GetChild(i).rotation = Quaternion.LookRotation(transform.position + Vector3.right, Vector3.forward);
                     break;
                 case 3:
-                    this.gameObject.transform.GetChild(i).Rotate(transform.forward, -45);
+                    this.gameObject.transform.GetChild(i).rotation = Quaternion.LookRotation(transform.position - Vector3.up, Vector3.forward);
                     break;
                 default:
                     break;
