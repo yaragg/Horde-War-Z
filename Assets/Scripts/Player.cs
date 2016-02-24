@@ -57,7 +57,8 @@ public class Player : MonoBehaviour {
         {
             for (int i = 0; i < 4; i++)
             {
-                this.gameObject.transform.GetChild(i).GetChild(0).GetComponent<Gun>().Shoot();
+            	GameObject child = this.gameObject.transform.GetChild(i).gameObject;
+                if(child.activeSelf) child.transform.GetChild(0).GetComponent<Gun>().Shoot();
             }
         }
 	}
