@@ -44,7 +44,7 @@ public class Player : MonoBehaviour {
 		// Move the player
 		var h = Input.GetAxis ("Horizontal");
 		var v = Input.GetAxis ("Vertical");
-		this.transform.Translate (new Vector3 (h, v, 0) * moveSpeed * Time.deltaTime);
+		this.transform.Translate (new Vector3 (h, v, 0) * moveSpeed * Time.deltaTime, Space.World);
 
 		// Move all characters to updated position relative to the player
 
@@ -61,6 +61,20 @@ public class Player : MonoBehaviour {
                 if(child.activeSelf) child.transform.GetChild(0).GetComponent<Gun>().Shoot();
             }
         }
+        
+        if (Input.GetKeyDown(KeyCode.Q)){
+        	this.transform.Rotate(new Vector3(0, 0, 90));
+        	foreach (GameObject character in characters){
+				character.transform.GetChild(1).transform.Rotate(0,0,-90);
+        	}
+			
+        }
+		if (Input.GetKeyDown(KeyCode.E)){
+			this.transform.Rotate(new Vector3(0, 0, -90));
+			foreach (GameObject character in characters){
+				character.transform.GetChild(1).transform.Rotate(0,0,90);
+			}
+		}
 	}
 
 	public void decreaseCharacterCount(){

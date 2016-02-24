@@ -9,6 +9,7 @@ public class GameScript : MonoBehaviour {
     public static int currScore;
 
     float timeLastSpawned = 0;
+    public float zombieTimer = 1f;
 
     public GameObject zombieType;
 
@@ -24,8 +25,8 @@ public class GameScript : MonoBehaviour {
         Text scoreDisplay = hudText.GetComponent<Text>();
         scoreDisplay.text = "Score " + currScore.ToString("D5");
 
-        if((Time.timeSinceLevelLoad - timeLastSpawned) >= 2) {
-            Instantiate(zombieType, new Vector3(10, 10, 0), Quaternion.identity);
+        if((Time.timeSinceLevelLoad - timeLastSpawned) >= zombieTimer) {
+			Instantiate(zombieType, new Vector3(RandValue(10, 15), RandValue(10, 15), 0), Quaternion.identity);
             timeLastSpawned = Time.timeSinceLevelLoad;
         }
 	}
@@ -43,5 +44,14 @@ public class GameScript : MonoBehaviour {
            PlayerPrefs.SetString("Name", GlobalsScript.CurrPlayer);
        }
        Application.LoadLevel(0);
+    }
+    
+    public int RandValue(int min, int max) {
+    	if (Random.Range(0, 2) == 1){
+    		return(Random.Range(min, max) * -1);
+    	}
+    	else {
+			return(Random.Range(min, max));
+    	}
     }
 }
