@@ -5,11 +5,11 @@ public class AIMovement : MonoBehaviour {
 
     public float moveSpeed = 6.0f;
 	public float maxDist = 8.0f;
-    public GameObject player;
+    GameObject player;
 
 	// Use this for initialization
 	void Start () {
-	
+		player = GameObject.Find("Player");
 	}
 	
 	// Update is called once per frame

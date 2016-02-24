@@ -18,7 +18,7 @@ public class Character : MonoBehaviour {
 	}
 
 	public void DecreaseHealth(){
-		if(health>0){
+		if(health>1){
 			health--;
 			GameObject heart = this.gameObject.transform.GetChild(0).GetChild(health).gameObject;
 			Renderer rend = heart.GetComponent<Renderer>();
@@ -26,7 +26,9 @@ public class Character : MonoBehaviour {
 			rend.sharedMaterial = depleted;
 		}
 		else{
-			//TODO dead!
+			GameObject.Find("Player").GetComponent<Player>().decreaseCharacterCount();
+			//Destroy(gameObject);
+			gameObject.SetActive(false);
 		}
 	}
 
