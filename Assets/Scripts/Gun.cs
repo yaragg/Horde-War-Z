@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        lastFired = Time.deltaTime;
+		lastFired = Time.frameCount;
 	}
 	
 	// Update is called once per frame
@@ -18,9 +18,9 @@ public class Gun : MonoBehaviour {
 	}
 
 	public void Shoot(){
-        if (Time.deltaTime > fireRate){
+        if (Time.frameCount - lastFired > fireRate){
             GameObject bullet = (GameObject)Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
-            lastFired = Time.deltaTime;
+            lastFired = Time.frameCount;
         }
 		//TODO change to transform.forward and transform.up once the forward vector is set properly
 	}

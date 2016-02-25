@@ -46,13 +46,6 @@ public class Player : MonoBehaviour {
 		var v = Input.GetAxis ("Vertical");
 		this.transform.Translate (new Vector3 (h, v, 0) * moveSpeed * Time.deltaTime, Space.World);
 
-		// Move all characters to updated position relative to the player
-
-		// if(characters[0].activeSelf) characters [0].transform.localPosition = new Vector3 (this.transform.position.x, this.transform.position.y - characters [0].transform.localScale.y, 0 );
-		// if(characters[1].activeSelf) characters [1].transform.localPosition = new Vector3 (this.transform.position.x + characters [0].transform.localScale.x, this.transform.position.y, 0 );
-		// if(characters[2].activeSelf) characters [2].transform.localPosition = new Vector3 (this.transform.position.x, this.transform.position.y + characters [0].transform.localScale.y, 0 );
-		// if(characters[3].activeSelf) characters [3].transform.localPosition = new Vector3 (this.transform.position.x  - characters [0].transform.localScale.x, this.transform.position.y, 0 );
-
         if (Input.GetMouseButton(0))
         {
             for (int i = 0; i < 4; i++)
