@@ -74,6 +74,6 @@ public class Player : MonoBehaviour {
 		characterCount--;
 
 		if(characterCount <= 0)
-			GameObject.Find("gameScriptHolder").GetComponent<GameScript>().onGameEnd();
+			GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>().onGameEnd();
 	}
 }

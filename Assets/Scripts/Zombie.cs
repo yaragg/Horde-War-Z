@@ -6,6 +6,8 @@ public class Zombie : MonoBehaviour {
 	public int health = 2;
 	public int healthMax = 2;
 
+	public int score = 5;
+
 	// Use this for initialization
 	void Start () {
 	

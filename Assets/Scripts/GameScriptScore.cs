@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class GameScript : MonoBehaviour {
+public class GameScriptScore : MonoBehaviour {
 
     public GameObject hudText;
 
@@ -24,20 +24,20 @@ public class GameScript : MonoBehaviour {
         Text scoreDisplay = hudText.GetComponent<Text>();
         scoreDisplay.text = "Score " + currScore.ToString("D5");
 
-        if((Time.timeSinceLevelLoad - timeLastSpawned) >= zombieTimer) {
+		if((Time.timeSinceLevelLoad - timeLastSpawned) >= zombieTimer) {
 			Instantiate(zombieType, new Vector3(RandValue(10, 15), RandValue(10, 15), 0), Quaternion.identity);
             timeLastSpawned = Time.timeSinceLevelLoad;
         }
 	}
 
-	public void updateScoreKill(int score) {
-		currScore += score;
+	public void updateScoreKill(int score){
+		currScore += score;		
 	}
 
     IEnumerator UpdateScore() {
         for(;;){
             currScore += 1;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
         }
     }
 

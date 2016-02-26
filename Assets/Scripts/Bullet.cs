@@ -25,7 +25,10 @@ public class Bullet : MonoBehaviour {
 		// If the obj is an Enemy
 		if (col.gameObject.tag == "Enemy") {
 			col.gameObject.GetComponent<Zombie>().DecreaseHealth();
+			var gameScript = GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>();
+			gameScript.updateScoreKill(col.gameObject.GetComponent<Zombie>().score);
 			Destroy(this.gameObject);
+
 		}
 	}
 }
