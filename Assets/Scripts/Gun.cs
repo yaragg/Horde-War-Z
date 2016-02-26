@@ -41,9 +41,12 @@ public class Gun : MonoBehaviour {
 			break;
 			case weaponType.shotgun:
 			if (Time.frameCount - lastFired > fireRate){
-				Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
-				Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(-15, -transform.up) * transform.forward, -transform.up));
-				Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(15, -transform.up) * transform.forward, -transform.up));
+				GameObject bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
+				bullet.GetComponent<Bullet>().damage = 2;
+				bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(-15, -transform.up) * transform.forward, -transform.up));
+				bullet.GetComponent<Bullet>().damage = 2;
+				bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(15, -transform.up) * transform.forward, -transform.up));
+				bullet.GetComponent<Bullet>().damage = 2;
 				lastFired = Time.frameCount;
 			}
 			break;
@@ -55,7 +58,8 @@ public class Gun : MonoBehaviour {
 			break;
 			case weaponType.sniper:
 			if (Time.frameCount - lastFired > fireRate){
-				Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
+				GameObject  bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
+				bullet.GetComponent<Bullet>().damage = 3;
 				lastFired = Time.frameCount;
 			}
 			break;

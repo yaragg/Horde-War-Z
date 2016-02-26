@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour {
 	public float moveSpeed = 10.0f;
 	float timeCreated;
 	public float lifespan = 5;
+	public int damage = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +25,7 @@ public class Bullet : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col){
 		// If the obj is an Enemy
 		if (col.gameObject.tag == "Enemy") {
-			col.gameObject.GetComponent<Zombie>().DecreaseHealth();
+			col.gameObject.GetComponent<Zombie>().DecreaseHealth(damage);
 			var gameScript = GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>();
 			gameScript.updateScoreKill(col.gameObject.GetComponent<Zombie>().score);
 			Destroy(this.gameObject);

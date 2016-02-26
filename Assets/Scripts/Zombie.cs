@@ -18,9 +18,9 @@ public class Zombie : MonoBehaviour {
 	
 	}
 
-	public void DecreaseHealth(){
-		if(health > 1){
-			health--;
+	public void DecreaseHealth(int damage){
+		if(health > damage){
+			health -= damage;
 		}
 		else{
 			Destroy(this.gameObject);
@@ -38,7 +38,7 @@ public class Zombie : MonoBehaviour {
 		// If the obj is a character
 		if (col.gameObject.tag == "Player") {
 			col.gameObject.GetComponent<Character>().DecreaseHealth();
-			this.DecreaseHealth();
+			this.DecreaseHealth(1);
 		}
 	}
 }
