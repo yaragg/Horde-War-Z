@@ -4,7 +4,7 @@ using System.Collections;
 public class Bullet : MonoBehaviour {
 	public float moveSpeed = 10.0f;
 	float timeCreated;
-	public float lifespan = 5;
+	public float lifespan = 4;
 	public int damage = 1;
 
 	// Use this for initialization

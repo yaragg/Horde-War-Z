@@ -20,13 +20,13 @@ public class Gun : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		switch (gunType) {
-		case weaponType.pistol: fireRate = 12f;
+		case weaponType.pistol: fireRate = 18f;
 			break;
-		case weaponType.shotgun: fireRate = 15f;
+		case weaponType.shotgun: fireRate = 30f;
 			break;
 		case weaponType.smg: fireRate = 5f;
 			break;
-		case weaponType.sniper: fireRate = 25f;
+		case weaponType.sniper: fireRate = 50f;
 			break;
 		}
 	}
@@ -34,36 +34,43 @@ public class Gun : MonoBehaviour {
 	public void Shoot(){
 		switch (gunType) {
 			case weaponType.pistol:
-			if (Time.frameCount - lastFired > fireRate){
-				Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
-				lastFired = Time.frameCount;
-			}
+			    if (Time.frameCount - lastFired > fireRate){
+				    GameObject bullet = (GameObject)Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
+                    bullet.GetComponent<Bullet>().damage = 2;
+                    bullet.GetComponent<Bullet>().lifespan = 1;
+				    lastFired = Time.frameCount;
+			    }
 			break;
 			case weaponType.shotgun:
-			if (Time.frameCount - lastFired > fireRate){
-				GameObject bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
-				bullet.GetComponent<Bullet>().damage = 2;
-				bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(-15, -transform.up) * transform.forward, -transform.up));
-				bullet.GetComponent<Bullet>().damage = 2;
-				bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(15, -transform.up) * transform.forward, -transform.up));
-				bullet.GetComponent<Bullet>().damage = 2;
-				lastFired = Time.frameCount;
-			}
+			    if (Time.frameCount - lastFired > fireRate){
+				    GameObject bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
+				    bullet.GetComponent<Bullet>().damage = 4;
+                    bullet.GetComponent<Bullet>().lifespan = 0.4f;
+                    bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(-10, -transform.up) * transform.forward, -transform.up));
+				    bullet.GetComponent<Bullet>().damage = 4;
+                    bullet.GetComponent<Bullet>().lifespan = 0.4f;
+                    bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(10, -transform.up) * transform.forward, -transform.up));
+				    bullet.GetComponent<Bullet>().damage = 4;
+                    bullet.GetComponent<Bullet>().lifespan = 0.4f;
+                    lastFired = Time.frameCount;
+			    }
 			break;
 			case weaponType.smg:
-			if (Time.frameCount - lastFired > fireRate){
-				Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
-				lastFired = Time.frameCount;
-			}
+			    if (Time.frameCount - lastFired > fireRate){
+                    GameObject bullet = (GameObject)Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
+                    bullet.GetComponent<Bullet>().damage = 1;
+                    bullet.GetComponent<Bullet>().lifespan = 0.6f;
+				    lastFired = Time.frameCount;
+			    }
 			break;
 			case weaponType.sniper:
-			if (Time.frameCount - lastFired > fireRate){
-				GameObject  bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
-				bullet.GetComponent<Bullet>().damage = 3;
-				lastFired = Time.frameCount;
-			}
+			    if (Time.frameCount - lastFired > fireRate){
+				    GameObject  bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
+				    bullet.GetComponent<Bullet>().damage = 4;
+                    bullet.GetComponent<Bullet>().lifespan = 2;
+				    lastFired = Time.frameCount;
+			    }
 			break;
 		}
-		//TODO change to transform.forward and transform.up once the forward vector is set properly
 	}
 }
