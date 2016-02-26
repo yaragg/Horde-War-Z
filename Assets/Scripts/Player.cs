@@ -8,34 +8,17 @@ public class Player : MonoBehaviour {
     public GameObject healthbarType;
     public GameObject gunType;
 	int characterCount = 4;
+    int currentFormation = 0, maxFormations = 2;
 
     // Use this for initialization
     void Start() {
         for (int i = 0; i < 4; i++)
         {
             GameObject go = this.gameObject.transform.GetChild(i).gameObject;
-            // Rotates each character's gun so so it fires in the correct direction
-            switch (i)
-            {
-                case 0:
-                    go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, -Vector3.forward);
-                    break;
-                case 1:
-                    go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.up, -Vector3.forward);
-                    break;
-                case 2:
-                    go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.right, -Vector3.forward);
-                    break;
-                case 3:
-                    go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.up, -Vector3.forward);
-                    break;
-                default:
-                    break;
-            }
             GameObject healthbar = (GameObject) Instantiate(healthbarType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2), Quaternion.identity);
             healthbar.transform.parent = go.transform;
-
         }
+        DiamondFormation();
 
     }
 	
@@ -54,6 +37,21 @@ public class Player : MonoBehaviour {
                 if(child.activeSelf) child.transform.GetChild(0).GetComponent<Gun>().Shoot();
             }
         }
+
+        if(Input.GetMouseButton(1)){
+            currentFormation = (currentFormation+1)%maxFormations;
+            switch(currentFormation)
+            {
+                case 0:
+                    DiamondFormation();
+                    break;
+                case 1:
+                    LineFormation();
+                    break;
+                default:
+                    break;
+            }
+        }
         
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.C)){
         	this.transform.Rotate(new Vector3(0, 0, 45));
@@ -69,6 +67,63 @@ public class Player : MonoBehaviour {
 			}
 		}
 	}
+
+    void DiamondFormation(){
+            // Rotates each character's gun so so it fires in the correct direction
+            for (int i = 0; i < 4; i++)
+            {
+                GameObject go = this.gameObject.transform.GetChild(i).gameObject;
+                GameObject healthbar = go.transform.GetChild(1).gameObject;
+                healthbar.transform.parent = null;
+                switch (i)
+                {
+                    case 0:
+
+                        go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, -Vector3.forward);
+                        break;
+                    case 1:
+                        go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.up, -Vector3.forward);
+                        break;
+                    case 2:
+                        go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.right, -Vector3.forward);
+                        break;
+                    case 3:
+                        go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.up, -Vector3.forward);
+                        break;
+                    default:
+                        break;
+                }
+                healthbar.transform.parent = go.transform;
+            }
+    }
+
+    void LineFormation(){
+            for (int i = 0; i < 4; i++)
+            {
+                GameObject go = this.gameObject.transform.GetChild(i).gameObject;
+                GameObject healthbar = go.transform.GetChild(1).gameObject;
+                healthbar.transform.parent = null;
+                switch (i)
+                {
+                    case 0:
+                        go.transform.Translate(new Vector3(-1, 0, 0));
+                        break;
+                    case 1:
+                        go.transform.Translate(new Vector3(0, 1, 0));
+                        break;
+                    case 2:
+                        go.transform.Translate(new Vector3(1, 1, 0));
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        break;
+                }
+                go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, -Vector3.forward);
+                healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
+                healthbar.transform.parent = go.transform;
+            }
+    }
 
 	public void decreaseCharacterCount(){
 		characterCount--;
