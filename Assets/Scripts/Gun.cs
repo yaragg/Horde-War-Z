@@ -42,8 +42,8 @@ public class Gun : MonoBehaviour {
 			case weaponType.shotgun:
 			if (Time.frameCount - lastFired > fireRate){
 				Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
-				Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(-15, Vector3.up) * transform.forward, -transform.up));
-				Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(15, Vector3.up) * transform.forward, -transform.up));
+				Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(-15, -transform.up) * transform.forward, -transform.up));
+				Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(15, -transform.up) * transform.forward, -transform.up));
 				lastFired = Time.frameCount;
 			}
 			break;
