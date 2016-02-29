@@ -80,18 +80,24 @@ public class Player : MonoBehaviour {
                     case 0:
                     	go.transform.localPosition = new Vector3(1, 0, 0);
                         go.transform.rotation = Quaternion.LookRotation(Vector3.right, -Vector3.forward);
+                        go.transform.rotation = Quaternion.LookRotation(go.transform.parent.right, -go.transform.parent.forward);
                         break;
                     case 1:
                     	go.transform.localPosition = new Vector3(0, 1, 0);
                         go.transform.rotation = Quaternion.LookRotation(Vector3.up, -Vector3.forward);
+                        go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
                         break;
                     case 2:
                     	go.transform.localPosition = new Vector3(-1, 0, 0);
                         go.transform.rotation = Quaternion.LookRotation(-Vector3.right, -Vector3.forward);
+                        go.transform.rotation = Quaternion.LookRotation(-go.transform.parent.right, -go.transform.parent.forward);
+
                         break;
                     case 3:
                     	go.transform.localPosition = new Vector3(0, -1, 0);
                         go.transform.rotation = Quaternion.LookRotation(-Vector3.up, -Vector3.forward);
+                        go.transform.rotation = Quaternion.LookRotation(-go.transform.parent.up, -go.transform.parent.forward);
+
                         break;
                     default:
                         break;
@@ -136,7 +142,7 @@ public class Player : MonoBehaviour {
                     default:
                         break;
                 }
-                go.transform.rotation = Quaternion.LookRotation(Vector3.right, -Vector3.forward);
+                go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
                 // go.transform.rotation = Quaternion.LookRotation(transform.position + go.transform.parent.right, -go.transform.parent.forward);
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
