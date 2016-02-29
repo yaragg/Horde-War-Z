@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 	public GameObject[] characters;
 	public float moveSpeed = 7.5f;
     public GameObject healthbarType;
+    public GameObject nameBoxType;
     public GameObject gunType;
 	int characterCount = 4;
 
@@ -32,9 +33,12 @@ public class Player : MonoBehaviour {
                 default:
                     break;
             }
-            GameObject healthbar = (GameObject) Instantiate(healthbarType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2), Quaternion.identity);
+            GameObject healthbar = (GameObject)Instantiate(healthbarType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2), Quaternion.identity);
             healthbar.transform.parent = go.transform;
 
+            GameObject nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z), Quaternion.identity);
+            nameBox.GetComponent<TextMesh>().text = NameScript.GetName("Player");
+            nameBox.transform.parent = go.transform;
         }
 
     }
@@ -59,14 +63,16 @@ public class Player : MonoBehaviour {
         	this.transform.Rotate(new Vector3(0, 0, 45));
         	foreach (GameObject character in characters){
 				character.transform.GetChild(1).transform.Rotate(0,0,-45);
-        	}
+                character.transform.GetChild(2).transform.Rotate(0, 0, -45);
+            }
 			
         }
 		if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.V)){
 			this.transform.Rotate(new Vector3(0, 0, -45));
 			foreach (GameObject character in characters){
 				character.transform.GetChild(1).transform.Rotate(0,0,45);
-			}
+                character.transform.GetChild(2).transform.Rotate(0, 0, 45);
+            }
 		}
 	}
 
