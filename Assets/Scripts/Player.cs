@@ -78,21 +78,25 @@ public class Player : MonoBehaviour {
                 switch (i)
                 {
                     case 0:
-
+                    	go.transform.localPosition = new Vector3(1, 0, 0);
                         go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, -Vector3.forward);
                         break;
                     case 1:
+                    	go.transform.localPosition = new Vector3(0, 1, 0);
                         go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.up, -Vector3.forward);
                         break;
                     case 2:
+                    	go.transform.localPosition = new Vector3(-1, 0, 0);
                         go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.right, -Vector3.forward);
                         break;
                     case 3:
+                    	go.transform.localPosition = new Vector3(0, -1, 0);
                         go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.up, -Vector3.forward);
                         break;
                     default:
                         break;
                 }
+                healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
             }
     }
@@ -106,20 +110,34 @@ public class Player : MonoBehaviour {
                 switch (i)
                 {
                     case 0:
-                        go.transform.Translate(new Vector3(-1, 0, 0));
+                        // go.transform.Translate(new Vector3(-1, 0, 0));
+                        //go.transform.Translate(-go.transform.forward);
+                    	// go.transform.localPosition -= go.transform.forward.normalized;
+                    	go.transform.localPosition = new Vector3(2f, 0, 0);
+                    	// go.transform.localPosition += new Vector3(-1, 0, 0);
                         break;
                     case 1:
-                        go.transform.Translate(new Vector3(0, 1, 0));
+                        // go.transform.Translate(new Vector3(0, 1, 0));
+                        // go.transform.Translate(2*go.transform.forward);
+                    	// go.transform.localPosition += 2*go.transform.forward.normalized;
+                    	go.transform.localPosition = new Vector3(-0.75f, 0, 0);
+                    	// go.transform.localPosition += new Vector3(0, 1, 0);
                         break;
                     case 2:
-                        go.transform.Translate(new Vector3(1, 1, 0));
+                        // go.transform.Translate(new Vector3(1, 1, 0));
+                        // go.transform.Translate(-go.transform.forward + go.transform.right);
+                    	// go.transform.localPosition += -go.transform.forward.normalized + go.transform.right.normalized;
+                    	go.transform.localPosition = new Vector3(-2f, 0, 0);
+                    	// go.transform.localPosition += new Vector3(1, 1, 0);
                         break;
                     case 3:
+                    	go.transform.localPosition = new Vector3(0.75f, 0, 0);
                         break;
                     default:
                         break;
                 }
-                go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, -Vector3.forward);
+                // go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, Vector3.forward);
+                go.transform.rotation = Quaternion.LookRotation(transform.position + go.transform.parent.right, -go.transform.parent.forward);
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
             }
