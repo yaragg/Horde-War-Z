@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour {
 	float timeCreated;
 	public float lifespan = 4;
 	public int damage = 1;
+	public bool persist = false;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +29,7 @@ public class Bullet : MonoBehaviour {
 			col.gameObject.GetComponent<Zombie>().DecreaseHealth(damage);
 			var gameScript = GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>();
 			gameScript.updateScoreKill(col.gameObject.GetComponent<Zombie>().score);
-			Destroy(this.gameObject);
+			if (!persist) { Destroy(this.gameObject); }
 
 		}
 	}

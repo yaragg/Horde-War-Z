@@ -61,7 +61,7 @@ public class Player : MonoBehaviour {
             }
         }
 
-        if(Input.GetMouseButton(1)){
+        if(Input.GetMouseButtonDown(1)){
             currentFormation = (currentFormation+1)%maxFormations;
             switch(currentFormation)
             {
