@@ -25,7 +25,7 @@ public class GameScriptScore : MonoBehaviour {
         scoreDisplay.text = "Score " + currScore.ToString("D5");
 
 		if((Time.timeSinceLevelLoad - timeLastSpawned) >= zombieTimer) {
-			Instantiate(zombieType, new Vector3(RandValue(10, 15), RandValue(10, 15), 0), Quaternion.identity);
+			Instantiate(zombieType, spawnLocation(), Quaternion.identity);
             timeLastSpawned = Time.timeSinceLevelLoad;
         }
 	}
@@ -56,5 +56,20 @@ public class GameScriptScore : MonoBehaviour {
     	else {
 			return(Random.Range(min, max));
     	}
+    }
+
+    public Vector3 spawnLocation(){
+        Vector3 loc;
+        int rand = Random.Range(0, 2);
+        switch (rand)
+        {
+            case 0: loc = new Vector3(RandValue(18, 22), RandValue(5, -5), 0);
+                break;
+            case 1: loc = new Vector3(RandValue(10, 15), RandValue(10, 15), 0);
+                break;
+            default: loc = new Vector3(0, 0, 0);
+                break;
+        }
+        return loc;
     }
 }
