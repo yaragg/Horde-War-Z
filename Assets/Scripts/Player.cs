@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
-	public GameObject[] characters;
+	public List<GameObject> characters;
 	public float moveSpeed = 7.5f;
     public GameObject healthbarType;
     public GameObject nameBoxType;
@@ -13,9 +14,10 @@ public class Player : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        characters = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
         for (int i = 0; i < 4; i++)
         {
-            GameObject go = this.gameObject.transform.GetChild(i).gameObject;
+            GameObject go = characters[i];
             // Rotates each character's gun so so it fires in the correct direction
             switch (i)
             {
@@ -97,7 +99,7 @@ public class Player : MonoBehaviour {
             // Rotates each character's gun so so it fires in the correct direction
             for (int i = 0; i < 4; i++)
             {
-                GameObject go = this.gameObject.transform.GetChild(i).gameObject;
+                GameObject go = characters[i];
                 GameObject healthbar = go.transform.GetChild(1).gameObject;
                 GameObject nameBox = go.transform.GetChild(2).gameObject;
 
@@ -142,7 +144,7 @@ public class Player : MonoBehaviour {
     void LineFormation(){
             for (int i = 0; i < 4; i++)
             {
-                GameObject go = this.gameObject.transform.GetChild(i).gameObject;
+                GameObject go = characters[i];
                 GameObject healthbar = go.transform.GetChild(1).gameObject;
                 GameObject nameBox = go.transform.GetChild(2).gameObject;
 
@@ -193,5 +195,13 @@ public class Player : MonoBehaviour {
 
 		if(characterCount <= 0)
 			GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>().onGameEnd();
+        else{
+            foreach(GameObject character in characters){
+                if(character.activeSelf == false){
+                    characters.Add(character); //Add character at the end
+                    characters.Remove(character); //Remove first occurrence of the character
+                }
+            }
+        }
 	}
 }
