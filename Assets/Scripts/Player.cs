@@ -11,6 +11,11 @@ public class Player : MonoBehaviour {
 	int characterCount = 4;
     int currentFormation = 0, maxFormations = 2;
 
+    public bool moveXpos = true;
+    public bool moveXneg = true;
+    public bool moveYpos = true;
+    public bool moveYneg = true;
+
     // Use this for initialization
     void Start() {
         for (int i = 0; i < 4; i++)
@@ -50,7 +55,31 @@ public class Player : MonoBehaviour {
 		// Move the player
 		var h = Input.GetAxis ("Horizontal");
 		var v = Input.GetAxis ("Vertical");
-		this.transform.Translate (new Vector3 (h, v, 0) * moveSpeed * Time.deltaTime, Space.World);
+
+        Vector3 moveVector = new Vector3(h, v, 0);
+
+        if (!moveXpos)
+        {
+            if (h > 0)
+                moveVector.x = 0;
+        }
+        if (!moveXneg)
+        {
+            if (h < 0)
+                moveVector.x = 0;
+        }
+        if (!moveYpos)
+        {
+            if (v > 0)
+                moveVector.y = 0;
+        }
+        if (!moveYneg)
+        {
+            if (v < 0)
+                moveVector.y = 0;
+        }
+
+		this.transform.Translate (moveVector * moveSpeed * Time.deltaTime, Space.World);
 
         if (Input.GetMouseButton(0))
         {
@@ -92,6 +121,16 @@ public class Player : MonoBehaviour {
             }
 		}
 	}
+
+    //METHOD FOR FIXING OBJECTS ESCAPING THROUGH WALLS PROBLEM
+    //// LateUpdate is called every frame, immediately after Update
+    //void LateUpdate()
+    //{
+    //    moveXpos = true;
+    //    moveXneg = true;
+    //    moveYpos = true;
+    //    moveYneg = true;
+    //}
 
     void DiamondFormation(){
             // Rotates each character's gun so so it fires in the correct direction

@@ -45,21 +45,41 @@ public class NameScript : MonoBehaviour {
     public static string GetName(string callTag) {
         string newName = "Name";
 
-        if(callTag == "Enemy" && FreshNames.Count > 0)
+        if ((callTag == "Enemy"))
         {
-            int index = Random.Range(0, FreshNames.Count - 1);
-            newName = FreshNames[index];
-            FreshNames.RemoveAt(index);
-            CurrNames.Add(newName);
+            if (FreshNames.Count > 0)
+            {
+                int index = Random.Range(0, FreshNames.Count - 1);
+                newName = FreshNames[index];
+                FreshNames.RemoveAt(index);
+            }
+            else if (AvailNames.Count > 0)
+            {
+                int index = Random.Range(0, AvailNames.Count - 1);
+                newName = AvailNames[index];
+                AvailNames.RemoveAt(index);
+            }
+            else
+            {
+                newName = "Zombie";
+            }
         }
-        else
+        
+        else if((callTag == "Player"))
         {
-            int index = Random.Range(0, AvailNames.Count - 1);
-            newName = AvailNames[index];
-            AvailNames.RemoveAt(index);
-            CurrNames.Add(newName);
+            if (AvailNames.Count > 0)
+            {
+                int index = Random.Range(0, AvailNames.Count - 1);
+                newName = AvailNames[index];
+                AvailNames.RemoveAt(index);
+            }
+            else
+            {
+                newName = "John";
+            } 
         }
 
+        CurrNames.Add(newName);
         return newName;
     }
 
