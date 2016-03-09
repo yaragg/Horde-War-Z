@@ -9,7 +9,7 @@ public class Player : MonoBehaviour {
     public GameObject healthbarType;
     public GameObject nameBoxType;
     public GameObject gunType;
-	int characterCount = 4;
+	public int characterCount = 4;
     int currentFormation = 0, maxFormations = 2;
 
     // Use this for initialization
@@ -147,7 +147,8 @@ public class Player : MonoBehaviour {
     }
 
     void LineFormation(){
-            for (int i = 0; i < 4; i++)
+    	if(characterCount == 4){
+    		for (int i = 0; i < 4; i++)
             {
                 GameObject go = characters[i];
                 GameObject healthbar = go.transform.GetChild(1).gameObject;
@@ -162,25 +163,25 @@ public class Player : MonoBehaviour {
                         // go.transform.Translate(new Vector3(-1, 0, 0));
                         //go.transform.Translate(-go.transform.forward);
                     	// go.transform.localPosition -= go.transform.forward.normalized;
-                        go.transform.localPosition = new Vector3(-0.75f, 0, 0);
+                        go.transform.localPosition = new Vector3(-0.7f, 0, 0);
                     	// go.transform.localPosition += new Vector3(-1, 0, 0);
                         break;
                     case 1:
-                        go.transform.localPosition = new Vector3(0.75f, 0, 0);
+                        go.transform.localPosition = new Vector3(0.7f, 0, 0);
                         // go.transform.Translate(new Vector3(0, 1, 0));
                         // go.transform.Translate(2*go.transform.forward);
                     	// go.transform.localPosition += 2*go.transform.forward.normalized;
-                        go.transform.localPosition = new Vector3(2f, 0, 0);
                     	// go.transform.localPosition += new Vector3(0, 1, 0);
                         break;
                     case 2:
                         // go.transform.Translate(new Vector3(1, 1, 0));
                         // go.transform.Translate(-go.transform.forward + go.transform.right);
                     	// go.transform.localPosition += -go.transform.forward.normalized + go.transform.right.normalized;
-                    	go.transform.localPosition = new Vector3(-2f, 0, 0);
+                        go.transform.localPosition = new Vector3(1.7f, 0, 0);
                     	// go.transform.localPosition += new Vector3(1, 1, 0);
                         break;
                     case 3:
+                    	go.transform.localPosition = new Vector3(-1.7f, 0, 0);
                         break;
                     default:
                         break;
@@ -192,7 +193,111 @@ public class Player : MonoBehaviour {
 
                 nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
                 nameBox.transform.parent = go.transform;
+        	}
+    	}
+    	else if(characterCount == 3){
+    		for (int i = 0; i < 3; i++)
+            {
+                GameObject go = characters[i];
+                GameObject healthbar = go.transform.GetChild(1).gameObject;
+                GameObject nameBox = go.transform.GetChild(2).gameObject;
+
+                healthbar.transform.parent = null;
+                nameBox.transform.parent = null;
+
+                switch (i)
+                {
+                    case 0:
+                        // go.transform.Translate(new Vector3(-1, 0, 0));
+                        //go.transform.Translate(-go.transform.forward);
+                    	// go.transform.localPosition -= go.transform.forward.normalized;
+                        go.transform.localPosition = new Vector3(-1.2f, 0, 0);
+                    	// go.transform.localPosition += new Vector3(-1, 0, 0);
+                        break;
+                    case 1:
+                        go.transform.localPosition = new Vector3(0, 0, 0);
+                        // go.transform.Translate(new Vector3(0, 1, 0));
+                        // go.transform.Translate(2*go.transform.forward);
+                    	// go.transform.localPosition += 2*go.transform.forward.normalized;
+                    	// go.transform.localPosition += new Vector3(0, 1, 0);
+                        break;
+                    case 2:
+                        // go.transform.Translate(new Vector3(1, 1, 0));
+                        // go.transform.Translate(-go.transform.forward + go.transform.right);
+                    	// go.transform.localPosition += -go.transform.forward.normalized + go.transform.right.normalized;
+                    	go.transform.localPosition = new Vector3(1.2f, 0, 0);
+                    	// go.transform.localPosition += new Vector3(1, 1, 0);
+                        break;
+                    default:
+                        break;
+                }
+                go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
+                // go.transform.rotation = Quaternion.LookRotation(transform.position + go.transform.parent.right, -go.transform.parent.forward);
+                healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
+                healthbar.transform.parent = go.transform;
+
+                nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
+                nameBox.transform.parent = go.transform;
+        	}
+    	}
+    	else if(characterCount == 2){
+    		for (int i = 0; i < 2; i++)
+            {
+                GameObject go = characters[i];
+                GameObject healthbar = go.transform.GetChild(1).gameObject;
+                GameObject nameBox = go.transform.GetChild(2).gameObject;
+
+                healthbar.transform.parent = null;
+                nameBox.transform.parent = null;
+
+                switch (i)
+                {
+                    case 0:
+                        // go.transform.Translate(new Vector3(-1, 0, 0));
+                        //go.transform.Translate(-go.transform.forward);
+                    	// go.transform.localPosition -= go.transform.forward.normalized;
+                        go.transform.localPosition = new Vector3(-0.5f, 0, 0);
+                    	// go.transform.localPosition += new Vector3(-1, 0, 0);
+                        break;
+                    case 1:
+                        go.transform.localPosition = new Vector3(0.5f, 0, 0);
+                        // go.transform.Translate(new Vector3(0, 1, 0));
+                        // go.transform.Translate(2*go.transform.forward);
+                    	// go.transform.localPosition += 2*go.transform.forward.normalized;
+                    	// go.transform.localPosition += new Vector3(0, 1, 0);
+                        break;
+                    default:
+                        break;
+                }
+                go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
+                // go.transform.rotation = Quaternion.LookRotation(transform.position + go.transform.parent.right, -go.transform.parent.forward);
+                healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
+                healthbar.transform.parent = go.transform;
+
+                nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
+                nameBox.transform.parent = go.transform;
+        	}
         }
+    	else if(characterCount == 1){
+    		var i=0;
+            GameObject go = characters[i];
+            GameObject healthbar = go.transform.GetChild(1).gameObject;
+            GameObject nameBox = go.transform.GetChild(2).gameObject;
+
+            healthbar.transform.parent = null;
+            nameBox.transform.parent = null;
+
+            go.transform.localPosition = new Vector3(0, 0, 0);
+
+            go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
+            // go.transform.rotation = Quaternion.LookRotation(transform.position + go.transform.parent.right, -go.transform.parent.forward);
+            healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
+            healthbar.transform.parent = go.transform;
+
+            nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
+            nameBox.transform.parent = go.transform;
+		}
+            
     }
 
 	public void decreaseCharacterCount(){
@@ -202,9 +307,10 @@ public class Player : MonoBehaviour {
 			GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>().onGameEnd();
         else{
             for(int i=0; i<characterCount; i++){
-                if(characters[i].activeSelf==false){
-                    characters.Add(characters[i]); //Add character at the end
-                    characters.Remove(characters[i]); //Remove first occurrence of the character
+            	GameObject go = characters[i];
+                if(go.activeSelf==false){
+                    characters.Remove(go); //Remove first occurrence of the character
+                    characters.Add(go); //Add character at the end
                 }
             }
             PickFormation(currentFormation);
