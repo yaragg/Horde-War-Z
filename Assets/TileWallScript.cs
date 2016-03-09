@@ -57,6 +57,10 @@ public class TileWallScript : MonoBehaviour {
                     break;
             }
         }
+
+		if (other.tag == "Bullet") {
+			other.GetComponent<Bullet>().destroyBullet();
+		}
     }
 
     // Called when object exits this trigger

@@ -11,6 +11,11 @@ public class Player : MonoBehaviour {
 	int characterCount = 4;
     int currentFormation = 0, maxFormations = 2;
 
+	GameObject camera;
+	public int camThresholdX = 2;
+	public int camThresholdY = 2;
+	public float smoothness = 0.25f;
+
     public bool moveXpos = true;
     public bool moveXneg = true;
     public bool moveYpos = true;
@@ -48,6 +53,7 @@ public class Player : MonoBehaviour {
         }
         DiamondFormation();
 
+		camera = GameObject.Find ("Main Camera");
     }
 	
 	// Update is called once per frame
@@ -80,6 +86,7 @@ public class Player : MonoBehaviour {
         }
 
 		this.transform.Translate (moveVector * moveSpeed * Time.deltaTime, Space.World);
+		moveCamera(camera);
 
         if (Input.GetMouseButton(0))
         {
@@ -232,5 +239,22 @@ public class Player : MonoBehaviour {
 
 		if(characterCount <= 0)
 			GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>().onGameEnd();
+	}
+
+	void moveCamera(GameObject cam){
+		Vector3 camDifference = this.transform.position - cam.transform.position;
+		camDifference.z = 0;
+		if (camDifference.x >= camThresholdX) {
+			cam.transform.Translate(camDifference * smoothness);
+		}
+		else if (camDifference.x <= -camThresholdX) {
+			cam.transform.Translate(camDifference * smoothness);
+		}
+		if (camDifference.y >= camThresholdY) {
+			cam.transform.Translate(camDifference * smoothness);
+		}
+		else if (camDifference.y <= -camThresholdY) {
+			cam.transform.Translate(camDifference * smoothness);
+		}
 	}
 }
