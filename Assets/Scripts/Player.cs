@@ -65,18 +65,9 @@ public class Player : MonoBehaviour {
 
         if(Input.GetMouseButtonDown(1)){
             currentFormation = (currentFormation+1)%maxFormations;
-            switch(currentFormation)
-            {
-                case 0:
-                    DiamondFormation();
-                    break;
-                case 1:
-                    LineFormation();
-                    break;
-                default:
-                    break;
-            }
+            PickFormation(currentFormation);
         }
+            
         
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.C)){
         	this.transform.Rotate(new Vector3(0, 0, 45));
@@ -94,6 +85,20 @@ public class Player : MonoBehaviour {
             }
 		}
 	}
+
+    void PickFormation(int num){
+        switch(num)
+            {
+                case 0:
+                    DiamondFormation();
+                    break;
+                case 1:
+                    LineFormation();
+                    break;
+                default:
+                    break;
+            }
+    }
 
     void DiamondFormation(){
             // Rotates each character's gun so so it fires in the correct direction
@@ -157,14 +162,15 @@ public class Player : MonoBehaviour {
                         // go.transform.Translate(new Vector3(-1, 0, 0));
                         //go.transform.Translate(-go.transform.forward);
                     	// go.transform.localPosition -= go.transform.forward.normalized;
-                    	go.transform.localPosition = new Vector3(2f, 0, 0);
+                        go.transform.localPosition = new Vector3(-0.75f, 0, 0);
                     	// go.transform.localPosition += new Vector3(-1, 0, 0);
                         break;
                     case 1:
+                        go.transform.localPosition = new Vector3(0.75f, 0, 0);
                         // go.transform.Translate(new Vector3(0, 1, 0));
                         // go.transform.Translate(2*go.transform.forward);
                     	// go.transform.localPosition += 2*go.transform.forward.normalized;
-                    	go.transform.localPosition = new Vector3(-0.75f, 0, 0);
+                        go.transform.localPosition = new Vector3(2f, 0, 0);
                     	// go.transform.localPosition += new Vector3(0, 1, 0);
                         break;
                     case 2:
@@ -175,7 +181,6 @@ public class Player : MonoBehaviour {
                     	// go.transform.localPosition += new Vector3(1, 1, 0);
                         break;
                     case 3:
-                    	go.transform.localPosition = new Vector3(0.75f, 0, 0);
                         break;
                     default:
                         break;
@@ -196,12 +201,19 @@ public class Player : MonoBehaviour {
 		if(characterCount <= 0)
 			GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>().onGameEnd();
         else{
-            foreach(GameObject character in characters){
-                if(character.activeSelf == false){
-                    characters.Add(character); //Add character at the end
-                    characters.Remove(character); //Remove first occurrence of the character
+            for(int i=0; i<characterCount; i++){
+                if(characters[i].activeSelf==false){
+                    characters.Add(characters[i]); //Add character at the end
+                    characters.Remove(characters[i]); //Remove first occurrence of the character
                 }
             }
+            PickFormation(currentFormation);
+            // foreach(GameObject character in characters){
+            //     if(character.activeSelf == false){
+            //         characters.Add(character); //Add character at the end
+            //         characters.Remove(character); //Remove first occurrence of the character
+            //     }
+            // }
         }
 	}
 }
