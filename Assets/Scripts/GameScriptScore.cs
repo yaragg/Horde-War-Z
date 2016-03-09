@@ -12,12 +12,15 @@ public class GameScriptScore : MonoBehaviour {
     public float zombieTimer = 1f;
 
     public GameObject zombieType;
+    GameObject[] zombieSpawners;
+    public float spawnDistance = 10f;
 
 	// Use this for initialization
 	void Start () {
         currScore = 0;
         StartCoroutine(UpdateScore());
-	}
+        zombieSpawners = GameObject.FindGameObjectsWithTag("Spawner");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -60,16 +63,12 @@ public class GameScriptScore : MonoBehaviour {
 
     public Vector3 spawnLocation(){
         Vector3 loc;
-        int rand = Random.Range(0, 2);
-        switch (rand)
+        int rand = Random.Range(0, zombieSpawners.Length);
+        while (Vector3.Magnitude(zombieSpawners[rand].transform.position - GameObject.Find("Player").transform.position) < spawnDistance)
         {
-            case 0: loc = new Vector3(RandValue(18, 22), RandValue(5, -5), 0);
-                break;
-            case 1: loc = new Vector3(RandValue(10, 15), RandValue(10, 15), 0);
-                break;
-            default: loc = new Vector3(0, 0, 0);
-                break;
+            rand = Random.Range(0, zombieSpawners.Length);
         }
+        loc = zombieSpawners[rand].transform.position;
         return loc;
     }
 }
