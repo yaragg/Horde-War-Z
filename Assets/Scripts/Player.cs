@@ -67,6 +67,10 @@ public class Player : MonoBehaviour {
             currentFormation = (currentFormation+1)%maxFormations;
             PickFormation(currentFormation);
         }
+
+        if(Input.GetMouseButtonDown(2)){
+        	PickFormation(currentFormation);
+        }
             
         
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.C)){
@@ -147,10 +151,11 @@ public class Player : MonoBehaviour {
     }
 
     void LineFormation(){
+    	int i=0;
     	if(characterCount == 4){
-    		for (int i = 0; i < 4; i++)
+    		foreach (GameObject go in characters)
             {
-                GameObject go = characters[i];
+                if(!go.activeSelf) continue;
                 GameObject healthbar = go.transform.GetChild(1).gameObject;
                 GameObject nameBox = go.transform.GetChild(2).gameObject;
 
@@ -160,25 +165,13 @@ public class Player : MonoBehaviour {
                 switch (i)
                 {
                     case 0:
-                        // go.transform.Translate(new Vector3(-1, 0, 0));
-                        //go.transform.Translate(-go.transform.forward);
-                    	// go.transform.localPosition -= go.transform.forward.normalized;
                         go.transform.localPosition = new Vector3(-0.7f, 0, 0);
-                    	// go.transform.localPosition += new Vector3(-1, 0, 0);
                         break;
                     case 1:
                         go.transform.localPosition = new Vector3(0.7f, 0, 0);
-                        // go.transform.Translate(new Vector3(0, 1, 0));
-                        // go.transform.Translate(2*go.transform.forward);
-                    	// go.transform.localPosition += 2*go.transform.forward.normalized;
-                    	// go.transform.localPosition += new Vector3(0, 1, 0);
                         break;
                     case 2:
-                        // go.transform.Translate(new Vector3(1, 1, 0));
-                        // go.transform.Translate(-go.transform.forward + go.transform.right);
-                    	// go.transform.localPosition += -go.transform.forward.normalized + go.transform.right.normalized;
                         go.transform.localPosition = new Vector3(1.7f, 0, 0);
-                    	// go.transform.localPosition += new Vector3(1, 1, 0);
                         break;
                     case 3:
                     	go.transform.localPosition = new Vector3(-1.7f, 0, 0);
@@ -186,8 +179,8 @@ public class Player : MonoBehaviour {
                     default:
                         break;
                 }
+                i++;
                 go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
-                // go.transform.rotation = Quaternion.LookRotation(transform.position + go.transform.parent.right, -go.transform.parent.forward);
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
 
@@ -196,9 +189,9 @@ public class Player : MonoBehaviour {
         	}
     	}
     	else if(characterCount == 3){
-    		for (int i = 0; i < 3; i++)
+    		foreach (GameObject go in characters)
             {
-                GameObject go = characters[i];
+                if(!go.activeSelf) continue;
                 GameObject healthbar = go.transform.GetChild(1).gameObject;
                 GameObject nameBox = go.transform.GetChild(2).gameObject;
 
@@ -208,31 +201,19 @@ public class Player : MonoBehaviour {
                 switch (i)
                 {
                     case 0:
-                        // go.transform.Translate(new Vector3(-1, 0, 0));
-                        //go.transform.Translate(-go.transform.forward);
-                    	// go.transform.localPosition -= go.transform.forward.normalized;
                         go.transform.localPosition = new Vector3(-1.2f, 0, 0);
-                    	// go.transform.localPosition += new Vector3(-1, 0, 0);
                         break;
                     case 1:
                         go.transform.localPosition = new Vector3(0, 0, 0);
-                        // go.transform.Translate(new Vector3(0, 1, 0));
-                        // go.transform.Translate(2*go.transform.forward);
-                    	// go.transform.localPosition += 2*go.transform.forward.normalized;
-                    	// go.transform.localPosition += new Vector3(0, 1, 0);
                         break;
                     case 2:
-                        // go.transform.Translate(new Vector3(1, 1, 0));
-                        // go.transform.Translate(-go.transform.forward + go.transform.right);
-                    	// go.transform.localPosition += -go.transform.forward.normalized + go.transform.right.normalized;
                     	go.transform.localPosition = new Vector3(1.2f, 0, 0);
-                    	// go.transform.localPosition += new Vector3(1, 1, 0);
                         break;
                     default:
                         break;
                 }
+                i++;
                 go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
-                // go.transform.rotation = Quaternion.LookRotation(transform.position + go.transform.parent.right, -go.transform.parent.forward);
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
 
@@ -241,9 +222,9 @@ public class Player : MonoBehaviour {
         	}
     	}
     	else if(characterCount == 2){
-    		for (int i = 0; i < 2; i++)
+    		foreach (GameObject go in characters)
             {
-                GameObject go = characters[i];
+                if(!go.activeSelf) continue;
                 GameObject healthbar = go.transform.GetChild(1).gameObject;
                 GameObject nameBox = go.transform.GetChild(2).gameObject;
 
@@ -253,24 +234,16 @@ public class Player : MonoBehaviour {
                 switch (i)
                 {
                     case 0:
-                        // go.transform.Translate(new Vector3(-1, 0, 0));
-                        //go.transform.Translate(-go.transform.forward);
-                    	// go.transform.localPosition -= go.transform.forward.normalized;
                         go.transform.localPosition = new Vector3(-0.5f, 0, 0);
-                    	// go.transform.localPosition += new Vector3(-1, 0, 0);
                         break;
                     case 1:
                         go.transform.localPosition = new Vector3(0.5f, 0, 0);
-                        // go.transform.Translate(new Vector3(0, 1, 0));
-                        // go.transform.Translate(2*go.transform.forward);
-                    	// go.transform.localPosition += 2*go.transform.forward.normalized;
-                    	// go.transform.localPosition += new Vector3(0, 1, 0);
                         break;
                     default:
                         break;
                 }
+                i++;
                 go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
-                // go.transform.rotation = Quaternion.LookRotation(transform.position + go.transform.parent.right, -go.transform.parent.forward);
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
 
@@ -279,23 +252,26 @@ public class Player : MonoBehaviour {
         	}
         }
     	else if(characterCount == 1){
-    		var i=0;
-            GameObject go = characters[i];
-            GameObject healthbar = go.transform.GetChild(1).gameObject;
-            GameObject nameBox = go.transform.GetChild(2).gameObject;
+    		foreach (GameObject go in characters)
+    		{
+	            if(!go.activeSelf) continue;
+	            GameObject healthbar = go.transform.GetChild(1).gameObject;
+	            GameObject nameBox = go.transform.GetChild(2).gameObject;
 
-            healthbar.transform.parent = null;
-            nameBox.transform.parent = null;
+	            healthbar.transform.parent = null;
+	            nameBox.transform.parent = null;
 
-            go.transform.localPosition = new Vector3(0, 0, 0);
+	            go.transform.localPosition = new Vector3(0, 0, 0);
 
-            go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
-            // go.transform.rotation = Quaternion.LookRotation(transform.position + go.transform.parent.right, -go.transform.parent.forward);
-            healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
-            healthbar.transform.parent = go.transform;
+	            go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
+	            healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
+	            healthbar.transform.parent = go.transform;
 
-            nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
-            nameBox.transform.parent = go.transform;
+	            nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
+	            nameBox.transform.parent = go.transform;
+	            break;
+    		}
+            
 		}
             
     }
@@ -303,23 +279,9 @@ public class Player : MonoBehaviour {
 	public void decreaseCharacterCount(){
 		characterCount--;
 
-		if(characterCount <= 0)
+		if(characterCount <= 0) {
 			GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>().onGameEnd();
-        else{
-            for(int i=0; i<characterCount; i++){
-            	GameObject go = characters[i];
-                if(go.activeSelf==false){
-                    characters.Remove(go); //Remove first occurrence of the character
-                    characters.Add(go); //Add character at the end
-                }
-            }
-            PickFormation(currentFormation);
-            // foreach(GameObject character in characters){
-            //     if(character.activeSelf == false){
-            //         characters.Add(character); //Add character at the end
-            //         characters.Remove(character); //Remove first occurrence of the character
-            //     }
-            // }
-        }
+		}
+		//PickFormation(currentFormation);
 	}
 }
