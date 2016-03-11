@@ -28,7 +28,8 @@ public class GameScriptScore : MonoBehaviour {
         scoreDisplay.text = "Score " + currScore.ToString("D5");
 
 		if((Time.timeSinceLevelLoad - timeLastSpawned) >= zombieTimer) {
-			Instantiate(zombieType, spawnLocation(), Quaternion.identity);
+			GameObject zombie = (GameObject)Instantiate(zombieType, spawnLocation(), Quaternion.identity);
+			zombie.GetComponent<AIMovement>().moveSpeed = Random.Range(1.0f, 3.0f);
             timeLastSpawned = Time.timeSinceLevelLoad;
         }
 	}
