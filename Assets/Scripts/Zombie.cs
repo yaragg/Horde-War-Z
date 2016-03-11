@@ -9,6 +9,9 @@ public class Zombie : MonoBehaviour {
 
     public int score = 5;
 
+	public GameObject itemDrop;
+	public float dropChance = 25.0f;
+
 	// Use this for initialization
 	void Start () {
 
@@ -33,6 +36,9 @@ public class Zombie : MonoBehaviour {
 			health-=damage;
 		}
 		else{
+			if (Random.Range (0.0f, 100.0f) <= dropChance) {
+				GameObject.Instantiate(itemDrop, transform.position, transform.rotation);
+			}
 			Destroy(this.gameObject);
 		}
 	}

@@ -29,8 +29,12 @@ public class Bullet : MonoBehaviour {
 			col.gameObject.GetComponent<Zombie>().DecreaseHealth(damage);
 			var gameScript = GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>();
 			gameScript.updateScoreKill(col.gameObject.GetComponent<Zombie>().score);
-			if (!persist) { Destroy(this.gameObject); }
-
+			if (!persist) { destroyBullet(); }
 		}
+	}
+
+	// Removes bullet from game
+	public void destroyBullet(){
+		Destroy(this.gameObject);
 	}
 }

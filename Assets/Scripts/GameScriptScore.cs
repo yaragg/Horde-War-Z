@@ -12,12 +12,15 @@ public class GameScriptScore : MonoBehaviour {
     public float zombieTimer = 1f;
 
     public GameObject zombieType;
+    GameObject[] zombieSpawners;
+    public float spawnDistance = 10f;
 
 	// Use this for initialization
 	void Start () {
         currScore = 0;
         StartCoroutine(UpdateScore());
-	}
+        zombieSpawners = GameObject.FindGameObjectsWithTag("Spawner");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -25,7 +28,8 @@ public class GameScriptScore : MonoBehaviour {
         scoreDisplay.text = "Score " + currScore.ToString("D5");
 
 		if((Time.timeSinceLevelLoad - timeLastSpawned) >= zombieTimer) {
-			Instantiate(zombieType, new Vector3(RandValue(10, 15), RandValue(10, 15), 0), Quaternion.identity);
+			GameObject zombie = (GameObject)Instantiate(zombieType, spawnLocation(), Quaternion.identity);
+			zombie.GetComponent<AIMovement>().moveSpeed = Random.Range(1.0f, 3.0f);
             timeLastSpawned = Time.timeSinceLevelLoad;
         }
 	}
@@ -56,5 +60,16 @@ public class GameScriptScore : MonoBehaviour {
     	else {
 			return(Random.Range(min, max));
     	}
+    }
+
+    public Vector3 spawnLocation(){
+        Vector3 loc;
+        int rand = Random.Range(0, zombieSpawners.Length);
+        while (Vector3.Magnitude(zombieSpawners[rand].transform.position - GameObject.Find("Player").transform.position) < spawnDistance)
+        {
+            rand = Random.Range(0, zombieSpawners.Length);
+        }
+        loc = zombieSpawners[rand].transform.position;
+        return loc;
     }
 }
