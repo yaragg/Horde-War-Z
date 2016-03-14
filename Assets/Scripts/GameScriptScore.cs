@@ -8,12 +8,15 @@ public class GameScriptScore : MonoBehaviour {
 
     public static int currScore;
 
+	// For Zombie spawning
     float timeLastSpawned = 0;
+	float waveSpawned = 0;
     public float zombieTimer = 1f;
-
+	public float waveTimer = 1.5f;
     public GameObject zombieType;
     GameObject[] zombieSpawners;
     public float spawnDistance = 10f;
+	public int waveSize = 10;
 
 	// Use this for initialization
 	void Start () {
@@ -27,11 +30,18 @@ public class GameScriptScore : MonoBehaviour {
         Text scoreDisplay = hudText.GetComponent<Text>();
         scoreDisplay.text = "Score " + currScore.ToString("D5");
 
+		// Spawns a single zombie at a time
 		if((Time.timeSinceLevelLoad - timeLastSpawned) >= zombieTimer) {
-			GameObject zombie = (GameObject)Instantiate(zombieType, spawnLocation(), Quaternion.identity);
-			zombie.GetComponent<AIMovement>().moveSpeed = Random.Range(1.0f, 3.0f);
+			spawnZombies(zombieType, spawnLocation(), 1);
             timeLastSpawned = Time.timeSinceLevelLoad;
         }
+
+		// Spawns waves of zombies
+		if((Time.timeSinceLevelLoad - waveSpawned) >= waveTimer) {
+			spawnZombies(zombieType, spawnLocation(), waveSize);
+			waveSpawned = Time.timeSinceLevelLoad;
+			waveSize += 2;
+		}
 	}
 
 	public void updateScoreKill(int score){
@@ -70,6 +80,15 @@ public class GameScriptScore : MonoBehaviour {
             rand = Random.Range(0, zombieSpawners.Length);
         }
         loc = zombieSpawners[rand].transform.position;
+		loc.z = 1;
         return loc;
     }
+
+	void spawnZombies(GameObject zombieType, Vector3 location,  int numZombies){
+		for (int i = 0; i < numZombies; i ++){
+			GameObject zombie = (GameObject)Instantiate(zombieType, location, Quaternion.identity);
+			zombie.GetComponent<AIMovement>().moveSpeed = Random.Range(1.0f, 4.0f);
+			waveSpawned = Time.timeSinceLevelLoad;
+		}
+	}
 }

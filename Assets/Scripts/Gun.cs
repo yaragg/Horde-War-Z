@@ -46,12 +46,15 @@ public class Gun : MonoBehaviour {
 				    GameObject bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(transform.forward, -transform.up));
 				    bullet.GetComponent<Bullet>().damage = 4;
                     bullet.GetComponent<Bullet>().lifespan = 0.4f;
+					bullet.GetComponent<Bullet>().persist = true;
                     bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(-10, -transform.up) * transform.forward, -transform.up));
 				    bullet.GetComponent<Bullet>().damage = 4;
                     bullet.GetComponent<Bullet>().lifespan = 0.4f;
+					bullet.GetComponent<Bullet>().persist = true;
                     bullet = (GameObject) Instantiate(bulletType, this.transform.position, Quaternion.LookRotation(Quaternion.AngleAxis(10, -transform.up) * transform.forward, -transform.up));
 				    bullet.GetComponent<Bullet>().damage = 4;
                     bullet.GetComponent<Bullet>().lifespan = 0.4f;
+					bullet.GetComponent<Bullet>().persist = true;
                     lastFired = Time.frameCount;
 			    }
 			break;

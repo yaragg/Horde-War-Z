@@ -29,7 +29,12 @@ public class AIMovement : MonoBehaviour {
 		Vector3 zomAway = new Vector3(0.0f, 0.0f, 0.0f);
 		foreach (GameObject zom in zombies) {
 			if ((currPos - zom.transform.position).magnitude < avoidDist && this.gameObject != zom){
-				zomAway += zom.transform.position - currPos;
+				if (!(zom.GetComponent<Zombie>().deceased)) zomAway += zom.transform.position - currPos;
+			}
+			if (this.gameObject == zom){
+				if (zom.GetComponent<Zombie>().deceased) {
+					moveSpeed = 0;
+				}
 			}
 		}
 		// Calculate final movement vector
@@ -61,13 +66,13 @@ public class AIMovement : MonoBehaviour {
         this.transform.Translate(toPlayer.normalized * moveSpeed * Time.deltaTime);
 	}
 
-    //METHOD FOR FIXING OBJECTS ESCAPING THROUGH WALLS PROBLEM
-    //// LateUpdate is called every frame, immediately after Update
-    //void LateUpdate()
-    //{
-    //    moveXpos = true;
-    //    moveXneg = true;
-    //    moveYpos = true;
-    //    moveYneg = true;
-    //}
+    // METHOD FOR FIXING OBJECTS ESCAPING THROUGH WALLS PROBLEM
+    // LateUpdate is called every frame, immediately after Update
+    /*void LateUpdate()
+    {
+        moveXpos = true;
+        moveXneg = true;
+        moveYpos = true;
+        moveYneg = true;
+    }*/
 }
