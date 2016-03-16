@@ -69,22 +69,22 @@ public class Player : MonoBehaviour {
         if (!moveXpos)
         {
             if (h > 0)
-                moveVector.x = 0;
+				moveVector.x -= 1f;
         }
         if (!moveXneg)
         {
             if (h < 0)
-                moveVector.x = 0;
+				moveVector.x += 1f;
         }
         if (!moveYpos)
         {
             if (v > 0)
-                moveVector.y = 0;
+				moveVector.y -= 1f;
         }
         if (!moveYneg)
         {
             if (v < 0)
-                moveVector.y = 0;
+                moveVector.y += 1f;
         }
 
 		this.transform.Translate (moveVector * moveSpeed * Time.deltaTime, Space.World);
@@ -109,19 +109,19 @@ public class Player : MonoBehaviour {
         }
             
         
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.C)){
-        	this.transform.Rotate(new Vector3(0, 0, 45));
+        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.C)){
+        	this.transform.Rotate(new Vector3(0, 0, 5));
         	foreach (GameObject character in characters){
-				character.transform.GetChild(1).transform.Rotate(0,0,-45);
-                character.transform.GetChild(2).transform.Rotate(0, 0, -45);
+				character.transform.GetChild(1).transform.Rotate(0,0,-5);
+                character.transform.GetChild(2).transform.Rotate(0, 0, -5);
             }
 			
         }
-		if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.V)){
-			this.transform.Rotate(new Vector3(0, 0, -45));
+		if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.V)){
+			this.transform.Rotate(new Vector3(0, 0, -5));
 			foreach (GameObject character in characters){
-				character.transform.GetChild(1).transform.Rotate(0,0,45);
-                character.transform.GetChild(2).transform.Rotate(0, 0, 45);
+				character.transform.GetChild(1).transform.Rotate(0, 0, 5);
+                character.transform.GetChild(2).transform.Rotate(0, 0, 5);
             }
 		}
 	}

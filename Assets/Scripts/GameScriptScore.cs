@@ -12,7 +12,7 @@ public class GameScriptScore : MonoBehaviour {
     float timeLastSpawned = 0;
 	float waveSpawned = 0;
     public float zombieTimer = 1f;
-	public float waveTimer = 1.5f;
+	public float waveTimer = 5f;
     public GameObject zombieType;
     GameObject[] zombieSpawners;
     public float spawnDistance = 10f;
@@ -38,9 +38,9 @@ public class GameScriptScore : MonoBehaviour {
 
 		// Spawns waves of zombies
 		if((Time.timeSinceLevelLoad - waveSpawned) >= waveTimer) {
-			spawnZombies(zombieType, spawnLocation(), waveSize);
+			//spawnZombies(zombieType, spawnLocation(), waveSize);
 			waveSpawned = Time.timeSinceLevelLoad;
-			waveSize += 2;
+			//waveSize += 2;
 		}
 	}
 
@@ -80,7 +80,6 @@ public class GameScriptScore : MonoBehaviour {
             rand = Random.Range(0, zombieSpawners.Length);
         }
         loc = zombieSpawners[rand].transform.position;
-		loc.z = 1;
         return loc;
     }
 
@@ -88,7 +87,6 @@ public class GameScriptScore : MonoBehaviour {
 		for (int i = 0; i < numZombies; i ++){
 			GameObject zombie = (GameObject)Instantiate(zombieType, location, Quaternion.identity);
 			zombie.GetComponent<AIMovement>().moveSpeed = Random.Range(1.0f, 4.0f);
-			waveSpawned = Time.timeSinceLevelLoad;
 		}
 	}
 }

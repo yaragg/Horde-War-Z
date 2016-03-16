@@ -13,14 +13,14 @@ public class Zombie : MonoBehaviour {
 	public GameObject itemDrop;
 	public float dropChance = 15.0f;
 
-	public bool deceased = false;
+	public bool alive = true;
 	float deathTime = 0;
 	public float remainsTimer = 1.0f;
 
 	// Use this for initialization
 	void Start () {
 
-        nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z), Quaternion.identity);
+        nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 2f), Quaternion.identity);
         nameBox.GetComponent<TextMesh>().text = NameScript.GetName(this.tag);
         nameBox.transform.parent = this.transform;
     }
@@ -28,7 +28,7 @@ public class Zombie : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		gameObject.transform.rotation = Quaternion.identity;
-		if (deceased && Time.timeSinceLevelLoad - deathTime >= remainsTimer) {
+		if (!alive && Time.timeSinceLevelLoad - deathTime >= remainsTimer) {
 			if (Random.Range (0.0f, 100.0f) <= dropChance) {
 				GameObject.Instantiate(itemDrop, transform.position, transform.rotation);
 			}
@@ -47,7 +47,7 @@ public class Zombie : MonoBehaviour {
 			health-=damage;
 		}
 		else{
-			deceased = true;
+			alive = false;
 			deathTime = Time.timeSinceLevelLoad;
 			nameBox.GetComponent<TextMesh>().color = Color.red;
 		}
@@ -62,9 +62,9 @@ public class Zombie : MonoBehaviour {
 	// Called whenever the Zombie collides with a 2D collider component
 	void OnTriggerEnter2D(Collider2D col){
 		// If the obj is a character
-		if (col.gameObject.tag == "Player" && !deceased) {
-			col.gameObject.GetComponent<Character>().DecreaseHealth();
-			this.DecreaseHealth(1);
+		if (col.gameObject.tag == "Player" && alive) {
+			//col.gameObject.GetComponent<Character>().DecreaseHealth();
+			//this.DecreaseHealth(1);
 		}
 	}
 }
