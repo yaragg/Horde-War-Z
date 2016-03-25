@@ -62,6 +62,8 @@ public class Zombie : MonoBehaviour {
 	// Called whenever the Zombie collides with a 2D collider component
 	void OnTriggerEnter2D(Collider2D col){
 		// If the obj is a character
+        if (!alive) return;
+
 		if (col.gameObject.tag == "Player" && alive) {
 			//col.gameObject.GetComponent<Character>().DecreaseHealth();
 			//this.DecreaseHealth(1);

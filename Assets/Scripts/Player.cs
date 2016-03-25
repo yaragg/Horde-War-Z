@@ -139,6 +139,7 @@ public class Player : MonoBehaviour {
                     break;
             }
     }
+
     //METHOD FOR FIXING OBJECTS ESCAPING THROUGH WALLS PROBLEM
     //// LateUpdate is called every frame, immediately after Update
     //void LateUpdate()
