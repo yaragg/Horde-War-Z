@@ -28,20 +28,32 @@ public class Player : MonoBehaviour {
         for (int i = 0; i < 4; i++)
         {
             GameObject go = characters[i];
-            // Rotates each character's gun so so it fires in the correct direction
+            // Rotates each character so it fires in the correct direction
             switch (i)
             {
                 case 0:
-                    go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, -Vector3.forward);
-                    break;
+					go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, -Vector3.forward);
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - go.transform.forward, -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - go.transform.forward, -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.5f;
+					break;
                 case 1:
                     go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.up, -Vector3.forward);
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - go.transform.forward, -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - go.transform.forward, -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.5f;
                     break;
                 case 2:
                     go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.right, -Vector3.forward);
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - go.transform.forward, -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - go.transform.forward, -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.5f;
                     break;
                 case 3:
                     go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.up, -Vector3.forward);
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - go.transform.forward, -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - go.transform.forward, -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.65f;
                     break;
                 default:
                     break;
@@ -95,7 +107,7 @@ public class Player : MonoBehaviour {
             for (int i = 0; i < 4; i++)
             {
             	GameObject child = this.gameObject.transform.GetChild(i).gameObject;
-                if(child.activeSelf) child.transform.GetChild(0).GetComponent<Gun>().Shoot();
+                if(child.activeSelf) child.transform.GetChild(1).GetComponent<Gun>().Shoot();
             }
         }
 
@@ -112,16 +124,16 @@ public class Player : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.C)){
         	this.transform.Rotate(new Vector3(0, 0, 45));
         	foreach (GameObject character in characters){
-				character.transform.GetChild(1).transform.Rotate(0,0,-45);
-                character.transform.GetChild(2).transform.Rotate(0, 0, -45);
+				character.transform.GetChild(2).transform.Rotate(0,0,-45);
+                character.transform.GetChild(3).transform.Rotate(0, 0, -45);
             }
 			
         }
 		if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.V)){
 			this.transform.Rotate(new Vector3(0, 0, -45));
 			foreach (GameObject character in characters){
-				character.transform.GetChild(1).transform.Rotate(0,0,45);
-                character.transform.GetChild(2).transform.Rotate(0, 0, 45);
+				character.transform.GetChild(2).transform.Rotate(0,0,45);
+                character.transform.GetChild(3).transform.Rotate(0, 0, 45);
             }
 		}
 	}
@@ -154,8 +166,8 @@ public class Player : MonoBehaviour {
             for (int i = 0; i < 4; i++)
             {
                 GameObject go = characters[i];
-                GameObject healthbar = go.transform.GetChild(1).gameObject;
-                GameObject nameBox = go.transform.GetChild(2).gameObject;
+                GameObject healthbar = go.transform.GetChild(2).gameObject;
+                GameObject nameBox = go.transform.GetChild(3).gameObject;
 
                 healthbar.transform.parent = null;
                 nameBox.transform.parent = null;
@@ -182,7 +194,6 @@ public class Player : MonoBehaviour {
                     	go.transform.localPosition = new Vector3(0, -1, 0);
                         go.transform.rotation = Quaternion.LookRotation(-Vector3.up, -Vector3.forward);
                         go.transform.rotation = Quaternion.LookRotation(-go.transform.parent.up, -go.transform.parent.forward);
-
                         break;
                     default:
                         break;
@@ -201,8 +212,8 @@ public class Player : MonoBehaviour {
     		foreach (GameObject go in characters)
             {
                 if(!go.activeSelf) continue;
-                GameObject healthbar = go.transform.GetChild(1).gameObject;
-                GameObject nameBox = go.transform.GetChild(2).gameObject;
+                GameObject healthbar = go.transform.GetChild(2).gameObject;
+                GameObject nameBox = go.transform.GetChild(3).gameObject;
 
                 healthbar.transform.parent = null;
                 nameBox.transform.parent = null;
@@ -237,8 +248,8 @@ public class Player : MonoBehaviour {
     		foreach (GameObject go in characters)
             {
                 if(!go.activeSelf) continue;
-                GameObject healthbar = go.transform.GetChild(1).gameObject;
-                GameObject nameBox = go.transform.GetChild(2).gameObject;
+                GameObject healthbar = go.transform.GetChild(2).gameObject;
+                GameObject nameBox = go.transform.GetChild(3).gameObject;
 
                 healthbar.transform.parent = null;
                 nameBox.transform.parent = null;
@@ -270,8 +281,8 @@ public class Player : MonoBehaviour {
     		foreach (GameObject go in characters)
             {
                 if(!go.activeSelf) continue;
-                GameObject healthbar = go.transform.GetChild(1).gameObject;
-                GameObject nameBox = go.transform.GetChild(2).gameObject;
+                GameObject healthbar = go.transform.GetChild(2).gameObject;
+                GameObject nameBox = go.transform.GetChild(3).gameObject;
 
                 healthbar.transform.parent = null;
                 nameBox.transform.parent = null;
@@ -300,8 +311,8 @@ public class Player : MonoBehaviour {
     		foreach (GameObject go in characters)
     		{
 	            if(!go.activeSelf) continue;
-	            GameObject healthbar = go.transform.GetChild(1).gameObject;
-	            GameObject nameBox = go.transform.GetChild(2).gameObject;
+	            GameObject healthbar = go.transform.GetChild(2).gameObject;
+	            GameObject nameBox = go.transform.GetChild(3).gameObject;
 
 	            healthbar.transform.parent = null;
 	            nameBox.transform.parent = null;
