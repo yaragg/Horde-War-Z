@@ -11,6 +11,8 @@ public class Player : MonoBehaviour {
     public GameObject gunType;
 	public int characterCount = 4;
     int currentFormation = 0, maxFormations = 2;
+	float rotateTime;
+	public float rotateDelay = 0.01f;
 
 	GameObject camera;
 	public int camThresholdX = 2;
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+		rotateTime = Time.timeSinceLevelLoad;
         characters = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
         for (int i = 0; i < 4; i++)
         {
@@ -121,20 +124,25 @@ public class Player : MonoBehaviour {
         }
             
         
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.C)){
-        	this.transform.Rotate(new Vector3(0, 0, 45));
-        	foreach (GameObject character in characters){
-				character.transform.GetChild(2).transform.Rotate(0,0,-45);
-                character.transform.GetChild(3).transform.Rotate(0, 0, -45);
-            }
-			
+        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.C)){
+			if (Time.timeSinceLevelLoad - rotateTime > rotateDelay) {
+				rotateTime = Time.timeSinceLevelLoad;
+        		this.transform.Rotate(new Vector3(0, 0, 15));
+        		foreach (GameObject character in characters){
+					character.transform.GetChild(2).transform.Rotate(0, 0, -15);
+	            	character.transform.GetChild(3).transform.Rotate(0, 0, -15);
+            	}
+			}
         }
-		if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.V)){
-			this.transform.Rotate(new Vector3(0, 0, -45));
-			foreach (GameObject character in characters){
-				character.transform.GetChild(2).transform.Rotate(0,0,45);
-                character.transform.GetChild(3).transform.Rotate(0, 0, 45);
-            }
+		if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.V)){
+			if (Time.timeSinceLevelLoad - rotateTime > rotateDelay) {
+				rotateTime = Time.timeSinceLevelLoad;
+				this.transform.Rotate(new Vector3(0, 0, -15));
+				foreach (GameObject character in characters){
+					character.transform.GetChild(2).transform.Rotate(0, 0, 15);
+                	character.transform.GetChild(3).transform.Rotate(0, 0, 15);
+            	}
+			}
 		}
 	}
 
