@@ -29,7 +29,7 @@ public class Character : MonoBehaviour {
 			GameObject.Find("Player").GetComponent<Player>().decreaseCharacterCount();
 
             GameObject thisName = this.gameObject.transform.GetChild(3).gameObject;
-            NameScript.ReturnName(this.tag, thisName.GetComponent<TextMesh>().text);
+            //NameScript.ReturnName(this.tag, thisName.GetComponent<TextMesh>().text);
 
             //Destroy(gameObject);
             gameObject.SetActive(false);
