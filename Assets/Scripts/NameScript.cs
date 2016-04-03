@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -183,9 +183,9 @@ public class NameScript : MonoBehaviour {
 
 	public static void InitCharNames()
 	{
-		Character_Names[0] = GetName("Player", 'X');
-		Character_Names[1] = GetName("Player", 'M');
-		Character_Names[2] = GetName("Player", 'F');
+		Character_Names[0] = GetName("Player", 'F');
+		Character_Names[1] = GetName("Player", 'X');
+		Character_Names[2] = GetName("Player", 'M');
 		Character_Names[3] = GetName("Player", 'M');
 	}
 }
