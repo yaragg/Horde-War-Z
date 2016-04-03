@@ -65,8 +65,7 @@ public class Player : MonoBehaviour {
             healthbar.transform.parent = go.transform;
 
             GameObject nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2), Quaternion.identity);
-            // nameBox.GetComponent<TextMesh>().text = NameScript.GetName("Player");
-            nameBox.GetComponent<TextMesh>().text = NameScript.PlayerNames[i];
+            nameBox.GetComponent<TextMesh>().text = NameScript.Character_Names[i];
             nameBox.transform.parent = go.transform;
         }
         DiamondFormation();

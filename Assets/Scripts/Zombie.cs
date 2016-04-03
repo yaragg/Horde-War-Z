@@ -12,11 +12,15 @@ public class Zombie : MonoBehaviour {
 	public GameObject itemDrop;
 	public float dropChance = 25.0f;
 
+	public char genderChar = 'M';
+
 	// Use this for initialization
 	void Start () {
 
+		genderChar = ChooseGender();
+
         GameObject nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z), Quaternion.identity);
-        nameBox.GetComponent<TextMesh>().text = NameScript.GetName(this.tag);
+        nameBox.GetComponent<TextMesh>().text = NameScript.GetName(this.tag, genderChar);
         nameBox.transform.parent = this.transform;
     }
 	
@@ -28,7 +32,7 @@ public class Zombie : MonoBehaviour {
     void OnDestroy()
     {
         GameObject thisName = this.gameObject.transform.GetChild(0).gameObject;
-        NameScript.ReturnName(this.tag, thisName.GetComponent<TextMesh>().text);
+        NameScript.ReturnName(this.tag, genderChar, thisName.GetComponent<TextMesh>().text);
     }
 
 	public void DecreaseHealth(int damage){
@@ -56,5 +60,18 @@ public class Zombie : MonoBehaviour {
 			col.gameObject.GetComponent<Character>().DecreaseHealth();
 			this.DecreaseHealth(1);
 		}
+	}
+
+	private char ChooseGender()
+	{
+		char rndGender;
+
+		int rnd = Random.Range(0, 2);
+		if(rnd == 0)
+			rndGender = 'M';
+		else
+			rndGender = 'F';
+
+		return rndGender;
 	}
 }
