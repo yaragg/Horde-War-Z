@@ -42,11 +42,26 @@ public class GameScript : MonoBehaviour {
     }
 
     public void onGameEnd() {
-       if (currScore > GlobalsScript.HighScoreInt) {
+
+		//returns all leftover zombie names back to respective lists
+		GameObject[] ZombiesLeft = GameObject.FindGameObjectsWithTag("Enemy");
+		foreach(GameObject zombie in ZombiesLeft)
+		{
+			Zombie zScript = zombie.GetComponent<Zombie>();
+
+			char thisChar = zScript.genderChar;
+			string thisName = zombie.GetComponent<TextMesh>().text;
+
+			NameScript.ReturnName("Enemy", thisChar, thisName);
+		}
+
+		//checks high score, overwrites if currScore is higher
+       	if (currScore > GlobalsScript.HighScoreInt) {
            PlayerPrefs.SetInt("Score", currScore);
            PlayerPrefs.SetString("Name", GlobalsScript.CurrPlayer);
-       }
-       Application.LoadLevel(0);
+       	}
+		
+       	Application.LoadLevel(0);
     }
     
     public int RandValue(int min, int max) {
