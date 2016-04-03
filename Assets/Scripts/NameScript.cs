@@ -12,7 +12,6 @@ public class NameScript : MonoBehaviour {
 	public static List<string> Avail_Names_F = new List<string>();
 	public static List<string> Curr_Names_F = new List<string>();
 
-	public static string[] Character_Names = {"an", "lgMale", "female", "smMale"};
 	public static string[] Character_Names = {"female", "an", "smMale", "lgMale"};
 
     void Awake()
