@@ -20,6 +20,11 @@ public class startGame : MonoBehaviour {
     {
         InputField textField = playerNameField.GetComponent<InputField>();
         GlobalsScript.CurrPlayer = textField.text;
+        NameScript.GeneratePlayerNames();
+        Application.LoadLevel("StoryScene");
+    }
+
+    public void onStoryEndClick(){
         Application.LoadLevel("mainGameScene");
     }
 }

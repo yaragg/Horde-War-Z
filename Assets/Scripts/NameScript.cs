@@ -10,11 +10,14 @@ public class NameScript : MonoBehaviour {
     public static List<string> CurrNames = new List<string>();
     public static List<string> FreshNames = new List<string>();
 
+    public static List<string> PlayerNames = new List<string>();
+
     void Awake()
     {
         TextAsset txtFile = Resources.Load("names") as TextAsset;
         AvailNames = ParseNamesList(txtFile);
         Resources.UnloadAsset(txtFile);
+        DontDestroyOnLoad(this);
     }
 
     private static List<string> ParseNamesList(TextAsset file){
@@ -81,6 +84,13 @@ public class NameScript : MonoBehaviour {
 
         CurrNames.Add(newName);
         return newName;
+    }
+
+    public static void GeneratePlayerNames(){
+        PlayerNames.Clear();
+        for(int i=0; i<4; i++){
+            PlayerNames.Add(GetName("Player"));
+        }
     }
 
     public static void ReturnName(string callTag, string name)
