@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col){
 		// If the obj is an Enemy
 		if (col.gameObject.tag == "Enemy") {
+			Debug.Log("SHOT");
 			col.gameObject.GetComponent<Zombie>().DecreaseHealth(damage);
 			var gameScript = GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>();
 			gameScript.updateScoreKill(col.gameObject.GetComponent<Zombie>().score);
