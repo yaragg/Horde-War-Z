@@ -8,8 +8,12 @@ public class Character : MonoBehaviour {
 	public Material full;
 	public Material depleted;
 
+	AudioSource audioSource;
+
+
 	// Use this for initialization
 	void Start () {
+		audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -18,6 +22,12 @@ public class Character : MonoBehaviour {
 	}
 
 	public void DecreaseHealth(){
+		if(audioSource){
+			if(!audioSource.isPlaying)
+			{
+				audioSource.Play();
+			}
+		}
 		if(health>1){
 			health--;
 			GameObject heart = this.gameObject.transform.GetChild(2).GetChild(health).gameObject;

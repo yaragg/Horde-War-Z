@@ -344,7 +344,7 @@ public class Player : MonoBehaviour {
 	public void decreaseCharacterCount(){
 		characterCount--;
 
-        if(characterCount == 1){
+        if(characterCount == 2){
             AudioSource audioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
             audioSource.clip = emergencyBGM;
             audioSource.Play();
