@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
     public GameObject healthbarType;
     public GameObject nameBoxType;
     public GameObject gunType;
+    public AudioClip emergencyBGM;
 	public int characterCount = 4;
     int currentFormation = 0, maxFormations = 2;
 	float rotateTime;
@@ -342,6 +343,12 @@ public class Player : MonoBehaviour {
 
 	public void decreaseCharacterCount(){
 		characterCount--;
+
+        if(characterCount == 1){
+            AudioSource audioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
+            audioSource.clip = emergencyBGM;
+            audioSource.Play();
+        }
 
 		if(characterCount <= 0) {
 			GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>().onGameEnd();
