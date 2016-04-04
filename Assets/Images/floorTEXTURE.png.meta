@@ -1,0 +1,276 @@
+fileFormatVersion: 2
+guid: ce22697ba8cc52648bf137174ed3f4e8
+timeCreated: 1459741367
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: floorTEXTURE_0
+    21300002: floorTEXTURE_1
+    21300004: floorTEXTURE_2
+    21300006: floorTEXTURE_3
+    21300008: floorTEXTURE_4
+    21300010: floorTEXTURE_5
+    21300012: floorTEXTURE_6
+    21300014: floorTEXTURE_7
+    21300016: floorTEXTURE_8
+    21300018: floorTEXTURE_9
+    21300020: floorTEXTURE_10
+    21300022: floorTEXTURE_11
+    21300024: floorTEXTURE_12
+    21300026: floorTEXTURE_13
+    21300028: floorTEXTURE_14
+    21300030: floorTEXTURE_15
+    21300032: floorTEXTURE_16
+    21300034: floorTEXTURE_17
+    21300036: floorTEXTURE_18
+    21300038: floorTEXTURE_19
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: floorTEXTURE_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 582
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_1
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 582
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_2
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 582
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_3
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 582
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_4
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 582
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 389
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_6
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 389
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_7
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 389
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_8
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 389
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_9
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 389
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 196
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_11
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 196
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_12
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 196
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_13
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 196
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_14
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 196
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_16
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 3
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_17
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 3
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_18
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 3
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floorTEXTURE_19
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 3
+        width: 187
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

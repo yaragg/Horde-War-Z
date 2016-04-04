@@ -1,9 +1,10 @@
 fileFormatVersion: 2
 guid: a231d6770de1d3e4ea7c8435f55ce99b
-timeCreated: 1459610985
+timeCreated: 1459745161
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: lgMaleZ_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -38,18 +39,28 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 90
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: lgMaleZ_0
+      rect:
+        serializedVersion: 2
+        x: 2406
+        y: 1383
+        width: 595
+        height: 407
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

@@ -14,14 +14,22 @@ public class Zombie : MonoBehaviour {
 
 	public char genderChar = 'M';
 
+	public Sprites spriteHolder;
+
 	// Use this for initialization
 	void Start () {
 
 		genderChar = ChooseGender();
 
-        GameObject nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z), Quaternion.identity);
+        GameObject nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(this.transform.position.x, this.transform.position.y - 1, this.transform.position.z), Quaternion.identity);
         nameBox.GetComponent<TextMesh>().text = NameScript.GetName(this.tag, genderChar);
         nameBox.transform.parent = this.transform;
+
+		spriteHolder = GameObject.Find("SpritesHolder").GetComponent<Sprites>();
+
+		SpriteRenderer thisSprite = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
+		thisSprite.sprite = spriteHolder.GetZombieSprite(genderChar);
+		thisSprite.color = new Color(Random.Range(0.8f, 1f), Random.Range(0.8f, 1f), Random.Range(0.8f, 1f));
     }
 	
 	// Update is called once per frame
@@ -31,7 +39,7 @@ public class Zombie : MonoBehaviour {
 
     void OnDestroy()
     {
-        GameObject thisName = this.gameObject.transform.GetChild(0).gameObject;
+        GameObject thisName = this.gameObject.transform.GetChild(1).gameObject;
         NameScript.ReturnName(this.tag, genderChar, thisName.GetComponent<TextMesh>().text);
     }
 
