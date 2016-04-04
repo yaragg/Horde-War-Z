@@ -4,9 +4,10 @@ An IGME320 GDDII project made in Unity.
 This is the second project for Game Design & Development II, taught by David Simkins. This project is based on themes inspired by Max Brooks' *World War Z* and brainstormed with Sandy Baldwin's Text & Code students.
 
 
-Credits: 
 
-BGM
+##Credits: 
+
+###BGM
 
 Title screen:
 
@@ -25,7 +26,7 @@ Panic:
 [Chaotic Filth by Stratkat](http://open.commonly.cc/)
 
   
-SFX
+###SFX
 
 [Female](https://www.freesound.org/people/Reitanna/sounds/242623/) and [androgynous](https://www.freesound.org/people/Reitanna/sounds/242622/) pain by [Reitanna](https://www.freesound.org/people/Reitanna/) under [CC0 1.0](http://creativecommons.org/publicdomain/zero/1.0/)
 
