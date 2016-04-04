@@ -21,23 +21,24 @@ public class Character : MonoBehaviour {
 
 	}
 
-	public void DecreaseHealth(){
+	public void DecreaseHealth(int damage){
 		if(audioSource){
 			if(!audioSource.isPlaying)
 			{
 				audioSource.Play();
 			}
 		}
-		if(health>1){
-			health--;
-			GameObject heart = this.gameObject.transform.GetChild(2).GetChild(health).gameObject;
-			Renderer rend = heart.GetComponent<Renderer>();
-			rend.enabled = true;
-			rend.sharedMaterial = depleted;
+		if(health > damage){
+			for (int i = 0; i < damage; i++){
+				health--;
+				GameObject heart = this.gameObject.transform.GetChild(2).GetChild(health).gameObject;
+				Renderer rend = heart.GetComponent<Renderer>();
+				rend.enabled = true;
+				rend.sharedMaterial = depleted;
+			}
 		}
 		else{
 			GameObject.Find("Player").GetComponent<Player>().decreaseCharacterCount();
-
             GameObject thisName = this.gameObject.transform.GetChild(3).gameObject;
             //NameScript.ReturnName(this.tag, thisName.GetComponent<TextMesh>().text);
 

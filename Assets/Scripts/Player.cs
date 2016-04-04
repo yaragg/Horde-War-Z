@@ -37,27 +37,27 @@ public class Player : MonoBehaviour {
             {
                 case 0:
 					go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, -Vector3.forward);
-					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - go.transform.forward, -Vector3.forward);
-					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - go.transform.forward, -Vector3.forward);
-					go.transform.GetChild(1).transform.position += go.transform.forward * 0.5f;
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.65f;
 					break;
                 case 1:
                     go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.up, -Vector3.forward);
-					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - go.transform.forward, -Vector3.forward);
-					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - go.transform.forward, -Vector3.forward);
-					go.transform.GetChild(1).transform.position += go.transform.forward * 0.5f;
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.8f;
                     break;
                 case 2:
                     go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.right, -Vector3.forward);
-					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - go.transform.forward, -Vector3.forward);
-					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - go.transform.forward, -Vector3.forward);
-					go.transform.GetChild(1).transform.position += go.transform.forward * 0.5f;
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.75f;
                     break;
                 case 3:
                     go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.up, -Vector3.forward);
-					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - go.transform.forward, -Vector3.forward);
-					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - go.transform.forward, -Vector3.forward);
-					go.transform.GetChild(1).transform.position += go.transform.forward * 0.65f;
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.95f;
                     break;
                 default:
                     break;

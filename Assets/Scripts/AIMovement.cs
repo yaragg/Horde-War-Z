@@ -5,7 +5,7 @@ public class AIMovement : MonoBehaviour {
 
     public float moveSpeed = 2.5f;
 	public float maxDist = 8.0f;
-	public float avoidDist = 1.0f;
+	public float avoidDist = 8.0f;
     GameObject player;
 	GameObject[] zombies;
 
@@ -57,8 +57,14 @@ public class AIMovement : MonoBehaviour {
             if (targetPos.y < currPos.y)
 				toPlayer.y = 0;
         }
-
-        this.transform.Translate(toPlayer.normalized * moveSpeed * Time.deltaTime);
+		
+        if (transform.GetComponent<Zombie>().alive) 
+		{
+			float angle = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg;
+			angle -= 90.0f;
+			this.transform.GetChild(0).transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+			this.transform.Translate(toPlayer.normalized * moveSpeed * Time.deltaTime);
+		}
 	}
 
     //METHOD FOR FIXING OBJECTS ESCAPING THROUGH WALLS PROBLEM

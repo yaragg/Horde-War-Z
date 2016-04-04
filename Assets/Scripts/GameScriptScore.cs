@@ -11,6 +11,8 @@ public class GameScriptScore : MonoBehaviour {
     float timeLastSpawned = 0;
     public float zombieTimer = 1f;
 
+	float timeAlive;
+
     public GameObject zombieType;
     GameObject[] zombieSpawners;
     public float spawnDistance = 10f;
@@ -29,7 +31,6 @@ public class GameScriptScore : MonoBehaviour {
 
 		if((Time.timeSinceLevelLoad - timeLastSpawned) >= zombieTimer) {
 			GameObject zombie = (GameObject)Instantiate(zombieType, spawnLocation(), Quaternion.identity);
-			zombie.GetComponent<AIMovement>().moveSpeed = Random.Range(1.0f, 3.0f);
             timeLastSpawned = Time.timeSinceLevelLoad;
         }
 	}
@@ -40,7 +41,7 @@ public class GameScriptScore : MonoBehaviour {
 
     IEnumerator UpdateScore() {
         for(;;){
-            currScore += 1;
+            timeAlive += 1;
             yield return new WaitForSeconds(2f);
         }
     }
