@@ -62,12 +62,13 @@ public class Player : MonoBehaviour {
                 default:
                     break;
             }
-            GameObject healthbar = (GameObject)Instantiate(healthbarType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2), Quaternion.identity);
+            GameObject healthbar = (GameObject)Instantiate(healthbarType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z +5), Quaternion.identity);
             healthbar.transform.parent = go.transform;
 
-            GameObject nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2), Quaternion.identity);
+			GameObject nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z +5), Quaternion.identity);
             nameBox.GetComponent<TextMesh>().text = NameScript.Character_Names[i];
             nameBox.transform.parent = go.transform;
+
         }
         DiamondFormation();
 
@@ -81,30 +82,6 @@ public class Player : MonoBehaviour {
 		var v = Input.GetAxis ("Vertical");
 
         Vector3 moveVector = new Vector3(h, v, 0);
-
-        if (!moveXpos)
-        {
-            if (h > 0)
-                moveVector.x = 0;
-        }
-        if (!moveXneg)
-        {
-            if (h < 0)
-                moveVector.x = 0;
-        }
-        if (!moveYpos)
-        {
-            if (v > 0)
-                moveVector.y = 0;
-        }
-        if (!moveYneg)
-        {
-            if (v < 0)
-                moveVector.y = 0;
-        }
-
-		this.transform.Translate (moveVector * moveSpeed * Time.deltaTime, Space.World);
-		moveCamera(camera);
 
         if (Input.GetMouseButton(0))
         {
@@ -126,25 +103,45 @@ public class Player : MonoBehaviour {
             
         
         if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.C)){
-			if (Time.timeSinceLevelLoad - rotateTime > rotateDelay) {
-				rotateTime = Time.timeSinceLevelLoad;
-        		this.transform.Rotate(new Vector3(0, 0, 15));
-        		foreach (GameObject character in characters){
-					character.transform.GetChild(2).transform.Rotate(0, 0, -15);
-	            	character.transform.GetChild(3).transform.Rotate(0, 0, -15);
-            	}
-			}
+			transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f)), Time.fixedDeltaTime * 1.5f);
+    		foreach (GameObject character in characters){
+				Quaternion rot = character.transform.GetChild(2).transform.rotation;
+				character.transform.GetChild(2).transform.rotation = Quaternion.Lerp(rot, rot * Quaternion.Euler(new Vector3(0.0f, 0.0f, -90.0f)), Time.fixedDeltaTime * 1.5f);
+				character.transform.GetChild(3).transform.rotation = Quaternion.Lerp(rot, rot * Quaternion.Euler(new Vector3(0.0f, 0.0f, -90.0f)), Time.fixedDeltaTime * 1.5f);
+        	}
         }
 		if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.V)){
-			if (Time.timeSinceLevelLoad - rotateTime > rotateDelay) {
-				rotateTime = Time.timeSinceLevelLoad;
-				this.transform.Rotate(new Vector3(0, 0, -15));
-				foreach (GameObject character in characters){
-					character.transform.GetChild(2).transform.Rotate(0, 0, 15);
-                	character.transform.GetChild(3).transform.Rotate(0, 0, 15);
-            	}
+			transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * Quaternion.Euler(new Vector3(0.0f, 0.0f, -90.0f)), Time.fixedDeltaTime * 1.5f);
+			foreach (GameObject character in characters){
+				Quaternion rot = character.transform.GetChild(2).transform.rotation;
+				character.transform.GetChild(2).transform.rotation = Quaternion.Lerp(rot, rot * Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f)), Time.fixedDeltaTime * 1.5f);
+				character.transform.GetChild(3).transform.rotation = Quaternion.Lerp(rot, rot * Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f)), Time.fixedDeltaTime * 1.5f);
 			}
 		}
+
+		if (!moveXpos)
+		{
+			if (h > 0)
+				moveVector.x = 0;
+		}
+		if (!moveXneg)
+		{
+			if (h < 0)
+				moveVector.x = 0;
+		}
+		if (!moveYpos)
+		{
+			if (v > 0)
+				moveVector.y = 0;
+		}
+		if (!moveYneg)
+		{
+			if (v < 0)
+				moveVector.y = 0;
+		}
+
+		this.transform.position = Vector3.Lerp(transform.position, transform.position + (moveVector * moveSpeed), Time.deltaTime);
+		moveCamera(camera);
 	}
 
     void PickFormation(int num){
@@ -160,7 +157,9 @@ public class Player : MonoBehaviour {
                     break;
             }
     }
-    //METHOD FOR FIXING OBJECTS ESCAPING THROUGH WALLS PROBLEM
+    
+
+	//METHOD FOR FIXING OBJECTS ESCAPING THROUGH WALLS PROBLEM
     //// LateUpdate is called every frame, immediately after Update
     //void LateUpdate()
     //{
@@ -169,6 +168,7 @@ public class Player : MonoBehaviour {
     //    moveYpos = true;
     //    moveYneg = true;
     //}
+
 
     void DiamondFormation(){
             // Rotates each character's gun so so it fires in the correct direction
@@ -329,7 +329,7 @@ public class Player : MonoBehaviour {
 	            go.transform.localPosition = new Vector3(0, 0, 0);
 
 	            go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
-	            healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
+	            healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
 	            healthbar.transform.parent = go.transform;
 
 	            nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
@@ -343,6 +343,7 @@ public class Player : MonoBehaviour {
 
 	public void decreaseCharacterCount(){
 		characterCount--;
+		PickFormation(currentFormation);
 
         if(characterCount == 1){
             AudioSource audioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();

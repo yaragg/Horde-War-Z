@@ -21,7 +21,7 @@ public class Zombie : MonoBehaviour {
 
 	public Sprites spriteHolder;
 
-	// Use this for initialization
+	// Use this for initialization	
 	void Start () {
 
 		genderChar = ChooseGender();
@@ -96,7 +96,10 @@ public class Zombie : MonoBehaviour {
 		}
 		else{
 			alive = false;
-			this.transform.GetChild(1).GetComponent<TextMesh>().color = Color.red;
+			SpriteRenderer thisSprite = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
+			thisSprite.color = new Color(255, thisSprite.color.g - 100, thisSprite.color.b - 100);
+			this.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = false;
+			this.transform.GetComponentInParent<CircleCollider2D>().radius *= 0.5f;
 			deathTime = Time.timeSinceLevelLoad;
 		}
 	}
