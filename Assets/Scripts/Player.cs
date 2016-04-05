@@ -65,8 +65,8 @@ public class Player : MonoBehaviour {
             GameObject healthbar = (GameObject)Instantiate(healthbarType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z +5), Quaternion.identity);
             healthbar.transform.parent = go.transform;
 
-			GameObject nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z +5), Quaternion.identity);
-            nameBox.GetComponent<TextMesh>().text = NameScript.Character_Names[i];
+            GameObject nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2), Quaternion.identity);
+			nameBox.GetComponent<TextMesh>().text = NameScript.Character_Names[i];
             nameBox.transform.parent = go.transform;
 
         }
@@ -209,9 +209,11 @@ public class Player : MonoBehaviour {
                 }
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
                 healthbar.transform.parent = go.transform;
+				healthbar.transform.localPosition = new Vector3(0, 8, 0.25f);
 
                 nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
                 nameBox.transform.parent = go.transform;
+				nameBox.transform.localPosition = new Vector3(1, -1, 0.5f);
         }
     }
 
@@ -248,9 +250,11 @@ public class Player : MonoBehaviour {
                 go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
+				healthbar.transform.localPosition = new Vector3(0, 8, 0.25f);
 
                 nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
                 nameBox.transform.parent = go.transform;
+				nameBox.transform.localPosition = new Vector3(1, -1, 0.5f);
         	}
     	}
     	else if(characterCount == 3){
@@ -281,9 +285,11 @@ public class Player : MonoBehaviour {
                 go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
+				healthbar.transform.localPosition = new Vector3(0, 8, 0.25f);
 
                 nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
                 nameBox.transform.parent = go.transform;
+				nameBox.transform.localPosition = new Vector3(1, -1, 0.5f);
         	}
     	}
     	else if(characterCount == 2){
@@ -311,9 +317,11 @@ public class Player : MonoBehaviour {
                 go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
+				healthbar.transform.localPosition = new Vector3(0, 8, 0.25f);
 
                 nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
                 nameBox.transform.parent = go.transform;
+				nameBox.transform.localPosition = new Vector3(1, -1, 0.5f);
         	}
         }
     	else if(characterCount == 1){
@@ -331,9 +339,11 @@ public class Player : MonoBehaviour {
 	            go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
 	            healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
 	            healthbar.transform.parent = go.transform;
+				healthbar.transform.localPosition = new Vector3(0, 8, 0.25f);
 
 	            nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
 	            nameBox.transform.parent = go.transform;
+				nameBox.transform.localPosition = new Vector3(1, -1, 0.5f);
 	            break;
     		}
             
