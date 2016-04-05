@@ -177,8 +177,6 @@ public class NameScript : MonoBehaviour {
 				Curr_Names_F.Remove(name);
 				Avail_Names_F.Add(name);
 		}
-
-
     }
 
 	public static void InitCharNames()
