@@ -23,9 +23,9 @@ public class StoryScript : MonoBehaviour {
 		storyDisplay.text = stories[index];
 
 		//Add in generated player names
-		storyDisplay.text = storyDisplay.text.Replace("[A]", NameScript.Character_Names[2]);
-		storyDisplay.text = storyDisplay.text.Replace("[B]", NameScript.Character_Names[3]);
-		storyDisplay.text = storyDisplay.text.Replace("[C]", NameScript.Character_Names[1]);
+		storyDisplay.text = storyDisplay.text.Replace("[A]", NameScript.Character_Names[3]);
+		storyDisplay.text = storyDisplay.text.Replace("[B]", NameScript.Character_Names[1]);
+		storyDisplay.text = storyDisplay.text.Replace("[C]", NameScript.Character_Names[2]);
 		storyDisplay.text = storyDisplay.text.Replace("[D]", NameScript.Character_Names[0]);
 	}
 	
