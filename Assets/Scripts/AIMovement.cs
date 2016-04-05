@@ -11,6 +11,7 @@ public class AIMovement : MonoBehaviour {
 
     GameObject player;
 	GameObject[] zombies;
+	GameObject[] obstacles;
 
 	public float seekWt = 5.0f;
 	public float avoidWt = 1.0f;
@@ -35,12 +36,17 @@ public class AIMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		zombies = GameObject.FindGameObjectsWithTag ("Enemy");
+		obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
         position = this.transform.position;
 		Vector3 acceleration = velocity;
         Vector3 targetPos = player.transform.position;
 
 		foreach (GameObject zom in zombies) {
 			acceleration += (Avoid(zom.transform.position, avoidDist)) * avoidWt;
+		}
+
+		foreach (GameObject obs in obstacles){
+			acceleration += (Avoid(obs.transform.position, avoidDist)) * avoidWt;
 		}
 
 		// IF player is in sight
@@ -52,6 +58,7 @@ public class AIMovement : MonoBehaviour {
 			acceleration += Wander(velocity, w_Direction, 5.0f, 0.1f) * wanderWt;
 			currSpeed = moveSpeed / 4f;
 		}
+		acceleration += Wander(velocity, w_Direction, 2.0f, 0.5f);
 
 		// Calculate final movement vector
 		//toPlayer = (targetPos - currPos) * seekWt;
