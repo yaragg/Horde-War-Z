@@ -14,6 +14,9 @@ public class GameScriptScore : MonoBehaviour {
 
 	float timeAlive;
 
+	private GameObject[] maps = new GameObject[2];
+	private GameObject[] spawners = new GameObject[2];
+
     public GameObject zombieType;
     GameObject[] zombieSpawners;
     public float spawnDistance = 10f;
@@ -21,6 +24,16 @@ public class GameScriptScore : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		maps[0] = GameObject.Find("Map0");
+		maps[1] = GameObject.Find("Map1");
+		spawners[0] = GameObject.Find("Spawners0");
+		spawners[1] = GameObject.Find("Spawners1");
+
+		int rndMapOff = Random.Range(0, maps.Length);
+		maps[rndMapOff].SetActive(false);
+		spawners[rndMapOff].SetActive(false);
+
         currScore = 0;
         StartCoroutine(UpdateScore());
         zombieSpawners = GameObject.FindGameObjectsWithTag("Spawner");

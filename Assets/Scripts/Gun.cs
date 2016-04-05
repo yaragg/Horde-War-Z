@@ -4,9 +4,13 @@ using System.Collections;
 public class Gun : MonoBehaviour {
 
 	public GameObject bulletType;
-    
+
 	public enum weaponType{pistol, sniper, smg, shotgun};
 	public weaponType gunType;
+
+	AudioSource audioSource;
+	float lastPlayed;
+	float playRate = 2;
 
 	// Fire Rate
 	float fireRate = 10f;
@@ -15,7 +19,12 @@ public class Gun : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		lastFired = Time.frameCount;
-
+		lastPlayed = Time.time - playRate;
+		audioSource = GetComponent<AudioSource>();
+	}
+	
+	// Update is called once per frame
+	void Update () {
 		switch (gunType) {
 		case weaponType.pistol: 
 			fireRate = 18f;
@@ -30,11 +39,6 @@ public class Gun : MonoBehaviour {
 			fireRate = 50f;
 			break;
 		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	public void Shoot(){
@@ -78,6 +82,13 @@ public class Gun : MonoBehaviour {
 				    lastFired = Time.frameCount;
 			    }
 			break;
+		}
+		if(audioSource){
+			if(!audioSource.isPlaying && (Time.time - lastPlayed > playRate || GameObject.Find("Player").GetComponent<Player>().characterCount <= 2))
+			{
+				lastPlayed = Time.time;
+				audioSource.Play();
+			}
 		}
 	}
 }
