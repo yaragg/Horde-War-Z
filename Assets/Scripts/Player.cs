@@ -9,8 +9,11 @@ public class Player : MonoBehaviour {
     public GameObject healthbarType;
     public GameObject nameBoxType;
     public GameObject gunType;
+    public AudioClip emergencyBGM;
 	public int characterCount = 4;
     int currentFormation = 0, maxFormations = 2;
+	float rotateTime;
+	public float rotateDelay = 0.01f;
 
 	GameObject camera;
 	public int camThresholdX = 2;
@@ -24,34 +27,48 @@ public class Player : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+		rotateTime = Time.timeSinceLevelLoad;
         characters = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
         for (int i = 0; i < 4; i++)
         {
             GameObject go = characters[i];
-            // Rotates each character's gun so so it fires in the correct direction
+            // Rotates each character so it fires in the correct direction
             switch (i)
             {
                 case 0:
-                    go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, -Vector3.forward);
-                    break;
+					go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.right, -Vector3.forward);
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.65f;
+					break;
                 case 1:
                     go.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.up, -Vector3.forward);
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.8f;
                     break;
                 case 2:
                     go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.right, -Vector3.forward);
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.75f;
                     break;
                 case 3:
                     go.transform.rotation = Quaternion.LookRotation(transform.position - Vector3.up, -Vector3.forward);
+					go.transform.GetChild(0).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(0).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.rotation = Quaternion.LookRotation(go.transform.GetChild(1).transform.up - ( 0.3f * go.transform.forward), -Vector3.forward);
+					go.transform.GetChild(1).transform.position += go.transform.forward * 0.95f;
                     break;
                 default:
                     break;
             }
-            GameObject healthbar = (GameObject)Instantiate(healthbarType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2), Quaternion.identity);
+            GameObject healthbar = (GameObject)Instantiate(healthbarType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z +5), Quaternion.identity);
             healthbar.transform.parent = go.transform;
 
             GameObject nameBox = (GameObject)Instantiate(nameBoxType, new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2), Quaternion.identity);
-            nameBox.GetComponent<TextMesh>().text = NameScript.GetName("Player");
+			nameBox.GetComponent<TextMesh>().text = NameScript.Character_Names[i];
             nameBox.transform.parent = go.transform;
+
         }
         DiamondFormation();
 
@@ -66,36 +83,12 @@ public class Player : MonoBehaviour {
 
         Vector3 moveVector = new Vector3(h, v, 0);
 
-        if (!moveXpos)
-        {
-            if (h > 0)
-                moveVector.x = 0;
-        }
-        if (!moveXneg)
-        {
-            if (h < 0)
-                moveVector.x = 0;
-        }
-        if (!moveYpos)
-        {
-            if (v > 0)
-                moveVector.y = 0;
-        }
-        if (!moveYneg)
-        {
-            if (v < 0)
-                moveVector.y = 0;
-        }
-
-		this.transform.Translate (moveVector * moveSpeed * Time.deltaTime, Space.World);
-		moveCamera(camera);
-
         if (Input.GetMouseButton(0))
         {
             for (int i = 0; i < 4; i++)
             {
             	GameObject child = this.gameObject.transform.GetChild(i).gameObject;
-                if(child.activeSelf) child.transform.GetChild(0).GetComponent<Gun>().Shoot();
+                if(child.activeSelf) child.transform.GetChild(1).GetComponent<Gun>().Shoot();
             }
         }
 
@@ -109,21 +102,46 @@ public class Player : MonoBehaviour {
         }
             
         
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.C)){
-        	this.transform.Rotate(new Vector3(0, 0, 45));
-        	foreach (GameObject character in characters){
-				character.transform.GetChild(1).transform.Rotate(0,0,-45);
-                character.transform.GetChild(2).transform.Rotate(0, 0, -45);
-            }
-			
+        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.C)){
+			transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f)), Time.fixedDeltaTime * 1.5f);
+    		foreach (GameObject character in characters){
+				Quaternion rot = character.transform.GetChild(2).transform.rotation;
+				character.transform.GetChild(2).transform.rotation = Quaternion.Lerp(rot, rot * Quaternion.Euler(new Vector3(0.0f, 0.0f, -90.0f)), Time.fixedDeltaTime * 1.5f);
+				character.transform.GetChild(3).transform.rotation = Quaternion.Lerp(rot, rot * Quaternion.Euler(new Vector3(0.0f, 0.0f, -90.0f)), Time.fixedDeltaTime * 1.5f);
+        	}
         }
-		if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.V)){
-			this.transform.Rotate(new Vector3(0, 0, -45));
+		if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.V)){
+			transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * Quaternion.Euler(new Vector3(0.0f, 0.0f, -90.0f)), Time.fixedDeltaTime * 1.5f);
 			foreach (GameObject character in characters){
-				character.transform.GetChild(1).transform.Rotate(0,0,45);
-                character.transform.GetChild(2).transform.Rotate(0, 0, 45);
-            }
+				Quaternion rot = character.transform.GetChild(2).transform.rotation;
+				character.transform.GetChild(2).transform.rotation = Quaternion.Lerp(rot, rot * Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f)), Time.fixedDeltaTime * 1.5f);
+				character.transform.GetChild(3).transform.rotation = Quaternion.Lerp(rot, rot * Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f)), Time.fixedDeltaTime * 1.5f);
+			}
 		}
+
+		if (!moveXpos)
+		{
+			if (h > 0)
+				moveVector.x = 0;
+		}
+		if (!moveXneg)
+		{
+			if (h < 0)
+				moveVector.x = 0;
+		}
+		if (!moveYpos)
+		{
+			if (v > 0)
+				moveVector.y = 0;
+		}
+		if (!moveYneg)
+		{
+			if (v < 0)
+				moveVector.y = 0;
+		}
+
+		this.transform.position = Vector3.Lerp(transform.position, transform.position + (moveVector * moveSpeed), Time.deltaTime);
+		moveCamera(camera);
 	}
 
     void PickFormation(int num){
@@ -139,7 +157,9 @@ public class Player : MonoBehaviour {
                     break;
             }
     }
-    //METHOD FOR FIXING OBJECTS ESCAPING THROUGH WALLS PROBLEM
+    
+
+	//METHOD FOR FIXING OBJECTS ESCAPING THROUGH WALLS PROBLEM
     //// LateUpdate is called every frame, immediately after Update
     //void LateUpdate()
     //{
@@ -149,13 +169,14 @@ public class Player : MonoBehaviour {
     //    moveYneg = true;
     //}
 
+
     void DiamondFormation(){
             // Rotates each character's gun so so it fires in the correct direction
             for (int i = 0; i < 4; i++)
             {
                 GameObject go = characters[i];
-                GameObject healthbar = go.transform.GetChild(1).gameObject;
-                GameObject nameBox = go.transform.GetChild(2).gameObject;
+                GameObject healthbar = go.transform.GetChild(2).gameObject;
+                GameObject nameBox = go.transform.GetChild(3).gameObject;
 
                 healthbar.transform.parent = null;
                 nameBox.transform.parent = null;
@@ -182,16 +203,17 @@ public class Player : MonoBehaviour {
                     	go.transform.localPosition = new Vector3(0, -1, 0);
                         go.transform.rotation = Quaternion.LookRotation(-Vector3.up, -Vector3.forward);
                         go.transform.rotation = Quaternion.LookRotation(-go.transform.parent.up, -go.transform.parent.forward);
-
                         break;
                     default:
                         break;
                 }
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
                 healthbar.transform.parent = go.transform;
+				healthbar.transform.localPosition = new Vector3(0, 8, 0.25f);
 
                 nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
                 nameBox.transform.parent = go.transform;
+				nameBox.transform.localPosition = new Vector3(1, -1, 0.5f);
         }
     }
 
@@ -201,8 +223,8 @@ public class Player : MonoBehaviour {
     		foreach (GameObject go in characters)
             {
                 if(!go.activeSelf) continue;
-                GameObject healthbar = go.transform.GetChild(1).gameObject;
-                GameObject nameBox = go.transform.GetChild(2).gameObject;
+                GameObject healthbar = go.transform.GetChild(2).gameObject;
+                GameObject nameBox = go.transform.GetChild(3).gameObject;
 
                 healthbar.transform.parent = null;
                 nameBox.transform.parent = null;
@@ -228,17 +250,19 @@ public class Player : MonoBehaviour {
                 go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
+				healthbar.transform.localPosition = new Vector3(0, 8, 0.25f);
 
                 nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
                 nameBox.transform.parent = go.transform;
+				nameBox.transform.localPosition = new Vector3(1, -1, 0.5f);
         	}
     	}
     	else if(characterCount == 3){
     		foreach (GameObject go in characters)
             {
                 if(!go.activeSelf) continue;
-                GameObject healthbar = go.transform.GetChild(1).gameObject;
-                GameObject nameBox = go.transform.GetChild(2).gameObject;
+                GameObject healthbar = go.transform.GetChild(2).gameObject;
+                GameObject nameBox = go.transform.GetChild(3).gameObject;
 
                 healthbar.transform.parent = null;
                 nameBox.transform.parent = null;
@@ -261,17 +285,19 @@ public class Player : MonoBehaviour {
                 go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
+				healthbar.transform.localPosition = new Vector3(0, 8, 0.25f);
 
                 nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
                 nameBox.transform.parent = go.transform;
+				nameBox.transform.localPosition = new Vector3(1, -1, 0.5f);
         	}
     	}
     	else if(characterCount == 2){
     		foreach (GameObject go in characters)
             {
                 if(!go.activeSelf) continue;
-                GameObject healthbar = go.transform.GetChild(1).gameObject;
-                GameObject nameBox = go.transform.GetChild(2).gameObject;
+                GameObject healthbar = go.transform.GetChild(2).gameObject;
+                GameObject nameBox = go.transform.GetChild(3).gameObject;
 
                 healthbar.transform.parent = null;
                 nameBox.transform.parent = null;
@@ -291,17 +317,19 @@ public class Player : MonoBehaviour {
                 go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
                 healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
                 healthbar.transform.parent = go.transform;
+				healthbar.transform.localPosition = new Vector3(0, 8, 0.25f);
 
                 nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
                 nameBox.transform.parent = go.transform;
+				nameBox.transform.localPosition = new Vector3(1, -1, 0.5f);
         	}
         }
     	else if(characterCount == 1){
     		foreach (GameObject go in characters)
     		{
 	            if(!go.activeSelf) continue;
-	            GameObject healthbar = go.transform.GetChild(1).gameObject;
-	            GameObject nameBox = go.transform.GetChild(2).gameObject;
+	            GameObject healthbar = go.transform.GetChild(2).gameObject;
+	            GameObject nameBox = go.transform.GetChild(3).gameObject;
 
 	            healthbar.transform.parent = null;
 	            nameBox.transform.parent = null;
@@ -309,11 +337,13 @@ public class Player : MonoBehaviour {
 	            go.transform.localPosition = new Vector3(0, 0, 0);
 
 	            go.transform.rotation = Quaternion.LookRotation(go.transform.parent.up, -go.transform.parent.forward);
-	            healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z+2);
+	            healthbar.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
 	            healthbar.transform.parent = go.transform;
+				healthbar.transform.localPosition = new Vector3(0, 8, 0.25f);
 
 	            nameBox.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, go.transform.position.z + 2);
 	            nameBox.transform.parent = go.transform;
+				nameBox.transform.localPosition = new Vector3(1, -1, 0.5f);
 	            break;
     		}
             
@@ -323,6 +353,13 @@ public class Player : MonoBehaviour {
 
 	public void decreaseCharacterCount(){
 		characterCount--;
+		PickFormation(currentFormation);
+
+        if(characterCount == 2){
+            AudioSource audioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
+            audioSource.clip = emergencyBGM;
+            audioSource.Play();
+        }
 
 		if(characterCount <= 0) {
 			GameObject.Find("gameScriptHolder").GetComponent<GameScriptScore>().onGameEnd();

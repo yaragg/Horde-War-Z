@@ -10,13 +10,30 @@ public class GameScriptScore : MonoBehaviour {
 
     float timeLastSpawned = 0;
     public float zombieTimer = 1f;
+	public int spawnNum = 1;
+
+	float timeAlive;
+
+	private GameObject[] maps = new GameObject[2];
+	private GameObject[] spawners = new GameObject[2];
 
     public GameObject zombieType;
     GameObject[] zombieSpawners;
     public float spawnDistance = 10f;
+	public float maxZombies = 50.0f;
 
 	// Use this for initialization
 	void Start () {
+
+		maps[0] = GameObject.Find("Map0");
+		maps[1] = GameObject.Find("Map1");
+		spawners[0] = GameObject.Find("Spawners0");
+		spawners[1] = GameObject.Find("Spawners1");
+
+		int rndMapOff = Random.Range(0, maps.Length);
+		maps[rndMapOff].SetActive(false);
+		spawners[rndMapOff].SetActive(false);
+
         currScore = 0;
         StartCoroutine(UpdateScore());
         zombieSpawners = GameObject.FindGameObjectsWithTag("Spawner");
@@ -27,11 +44,14 @@ public class GameScriptScore : MonoBehaviour {
         Text scoreDisplay = hudText.GetComponent<Text>();
         scoreDisplay.text = "Score " + currScore.ToString("D5");
 
-		if((Time.timeSinceLevelLoad - timeLastSpawned) >= zombieTimer) {
-			GameObject zombie = (GameObject)Instantiate(zombieType, spawnLocation(), Quaternion.identity);
-			zombie.GetComponent<AIMovement>().moveSpeed = Random.Range(1.0f, 3.0f);
-            timeLastSpawned = Time.timeSinceLevelLoad;
+		if((Time.timeSinceLevelLoad - timeLastSpawned) >= zombieTimer && GameObject.FindGameObjectsWithTag("Enemy").Length < maxZombies) {
+			spawnZombie(spawnLocation(), spawnNum);
+			timeLastSpawned = Time.timeSinceLevelLoad;
         }
+
+		if (timeAlive % 20 == 0) {spawnNum ++;}
+		if (spawnNum > 4) {spawnNum = 4;}
+		
 	}
 
 	public void updateScoreKill(int score){
@@ -40,7 +60,7 @@ public class GameScriptScore : MonoBehaviour {
 
     IEnumerator UpdateScore() {
         for(;;){
-            currScore += 1;
+            timeAlive += 1;
             yield return new WaitForSeconds(2f);
         }
     }
@@ -65,11 +85,17 @@ public class GameScriptScore : MonoBehaviour {
     public Vector3 spawnLocation(){
         Vector3 loc;
         int rand = Random.Range(0, zombieSpawners.Length);
-        while (Vector3.Magnitude(zombieSpawners[rand].transform.position - GameObject.Find("Player").transform.position) < spawnDistance)
-        {
-            rand = Random.Range(0, zombieSpawners.Length);
-        }
+		//while (Vector3.Magnitude(zombieSpawners[rand].transform.position - GameObject.Find("Player").transform.position) < spawnDistance) 
+        //{
+            //rand = Random.Range(0, zombieSpawners.Length);
+        //}
         loc = zombieSpawners[rand].transform.position;
         return loc;
     }
+
+	void spawnZombie(Vector3 location, int numZombies){
+		for (int i = 0; i < numZombies; i++){
+			GameObject zombie = (GameObject)Instantiate(zombieType, location, Quaternion.identity);
+		}
+	}
 }

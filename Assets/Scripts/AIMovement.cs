@@ -4,10 +4,21 @@ using System.Collections;
 public class AIMovement : MonoBehaviour {
 
     public float moveSpeed = 2.5f;
+	float currSpeed;
 	public float maxDist = 8.0f;
-	public float avoidDist = 1.0f;
+	public float avoidDist = 8.0f;
+	public float sightDist = 10.0f;
+
     GameObject player;
 	GameObject[] zombies;
+	GameObject[] obstacles;
+
+	public float seekWt = 5.0f;
+	public float avoidWt = 1.0f;
+	public float wanderWt = 1.0f;
+	Vector3 velocity;
+	Vector3 position;
+	Vector3 w_Direction;
 
     public bool moveXpos = true;
     public bool moveXneg = true;
@@ -16,49 +27,64 @@ public class AIMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		velocity = new Vector3(0.0f, 0.0f, 0.0f);
 		player = GameObject.Find("Player");
+		velocity = Vector3.up;
+		w_Direction = Vector3.up;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		zombies = GameObject.FindGameObjectsWithTag ("Enemy");
-        Vector3 currPos = this.transform.position;
+		obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+        position = this.transform.position;
+		Vector3 acceleration = velocity;
         Vector3 targetPos = player.transform.position;
-	    Vector3 toPlayer = new Vector3();
-		// Creates a vector pointing away from nearby zombies
-		Vector3 zomAway = new Vector3(0.0f, 0.0f, 0.0f);
+
 		foreach (GameObject zom in zombies) {
-			if ((currPos - zom.transform.position).magnitude < avoidDist && this.gameObject != zom){
-				zomAway += zom.transform.position - currPos;
-			}
+			acceleration += (Avoid(zom.transform.position, avoidDist)) * avoidWt;
 		}
+
+		foreach (GameObject obs in obstacles){
+			acceleration += (Avoid(obs.transform.position, avoidDist)) * avoidWt;
+		}
+
+		// IF player is in sight
+		if (Vector3.Magnitude(transform.position - targetPos) < sightDist) {
+			acceleration += Seek(targetPos) * seekWt;
+			currSpeed = moveSpeed;
+		}
+		else {
+			acceleration += Wander(velocity, w_Direction, 5.0f, 0.1f) * wanderWt;
+			currSpeed = moveSpeed / 4f;
+		}
+		acceleration += Wander(velocity, w_Direction, 2.0f, 0.5f);
+
 		// Calculate final movement vector
-		toPlayer = targetPos - currPos;
-		toPlayer -= zomAway * 4.0f;
+		//toPlayer = (targetPos - currPos) * seekWt;
+		//toPlayer += zomAway * avoidWt;
 
 		// Wall Collisions
-        if(!moveXpos)
+        if(!moveXpos || !moveXneg)
         {
-            if (targetPos.x > currPos.x)
-				toPlayer.x = 0;
+            //if (targetPos.x > currPos.x)
+			acceleration.x *= -1.0f;
+			w_Direction.x *= -1.0f;
         }
-        if (!moveXneg)
+        if (!moveYpos || !moveYneg)
         {
-            if (targetPos.x < currPos.x)
-				toPlayer.x = 0;
+            //if (targetPos.y > currPos.y)
+			acceleration.y *= -1.0f;
+			w_Direction.y *= -1.0f;
         }
-        if (!moveYpos)
-        {
-            if (targetPos.y > currPos.y)
-				toPlayer.y = 0;
-        }
-        if (!moveYneg)
-        {
-            if (targetPos.y < currPos.y)
-				toPlayer.y = 0;
-        }
-
-        this.transform.Translate(toPlayer.normalized * moveSpeed * Time.deltaTime);
+		
+        if (transform.GetComponent<Zombie>().alive) 
+		{
+			float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg - 90.0f;
+			this.transform.GetChild(0).transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+			velocity = acceleration.normalized * currSpeed;
+			transform.position = Vector3.Lerp(transform.position, transform.position + velocity, Time.deltaTime);;
+		}
 	}
 
     //METHOD FOR FIXING OBJECTS ESCAPING THROUGH WALLS PROBLEM
@@ -70,4 +96,30 @@ public class AIMovement : MonoBehaviour {
     //    moveYpos = true;
     //    moveYneg = true;
     //}
+
+	Vector3 Seek(Vector3 location)
+	{
+		return location - transform.position;
+	}
+
+	Vector3 Wander(Vector3 forward, Vector3 wanderDir, float angle, float wanderDist)
+	{
+		float w_angle = Mathf.Atan2(wanderDir.y, wanderDir.x) * Mathf.Rad2Deg * Random.Range(-angle, angle);
+		Vector3 result = Quaternion.AngleAxis(w_angle, Vector3.forward) * (wanderDir.normalized * wanderDist);
+		w_Direction = result;
+		result += (forward * 20.0f);
+		return result;
+	}
+
+	Vector3 Avoid(Vector3 position, float dist)
+	{
+		Vector3 result;
+		// Too Close!!
+		if (Vector3.Distance(transform.position, position) < dist) {
+			result = transform.position - position;
+		}
+		else
+			result = Vector3.zero;
+		return result;
+	}
 }
